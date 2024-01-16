@@ -3,8 +3,8 @@ import {ConnectKitButton} from "connectkit";
 
 export const Navbar = () => {
 	return (
-		<div>
+		<nav className='h-16 w-full bg-primary-light flex items-center justify-end px-6'>
 			<ConnectKitButton/>
-		</div>
+		</nav>
 	);
 }

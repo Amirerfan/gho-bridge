@@ -2,3 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
+.app {
+  @apply w-screen h-screen flex flex-col overflow-hidden items-center justify-center bg-primary;
+}
