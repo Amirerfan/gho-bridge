@@ -1,9 +1,10 @@
+import {ConnectKitButton} from "connectkit";
 
 
 export const Navbar = () => {
 	return (
 		<div>
-			Navbar
+			<ConnectKitButton/>
 		</div>
 	);
 }
