@@ -1,9 +1,13 @@
 import { useGHOContext } from '../contexts/GHOContext';
+import { useState } from 'react';
 
 export const Home = () => {
-  const { ghoBalance } = useGHOContext();
+  const { ghoBalance, ghoUsdPrice } = useGHOContext();
+  const [fromInput, setFromInput] = useState('');
+  const [toInput, setToInput] = useState('');
+
   return (
-    <div className="flex-1 flex items-center justify-center flex-col gap-3">
+    <div className="flex-1 flex items-center justify-center flex-col gap-5">
       <h1 className="text-4xl font-bold text-white">GHO Bridge</h1>
       <p className="text-secondary text-xl font-semibold mb-5">
         Bridge your GHO tokens from Ethereum to polygon network.
@@ -22,17 +26,30 @@ export const Home = () => {
             <input
               type="number"
               id="amount"
+              value={fromInput}
+              onChange={(e) => setFromInput(e.target.value)}
               className="text-3xl bg-transparent text-white pl-0 w-[50%]"
               placeholder="0.0"
             />
-            <p className="text-secondary text-sm font-medium mt-1">$3.80</p>
+            <p className="text-secondary text-sm font-medium mt-1">
+              ${ghoUsdPrice && ghoUsdPrice.dsp}
+              {fromInput && ghoUsdPrice
+                ? ' x ' +
+                  fromInput +
+                  ' = $' +
+                  (ghoUsdPrice.dsp * Number(fromInput)).toFixed(2)
+                : ' (1 GHO)'}
+            </p>
           </div>
           <div className="flex flex-col gap-2 rounded-xl w-[50%] py-0.5 justify-start h-full items-end">
             <div className="flex gap-2 items-center justify-center">
               {ghoBalance && (
                 <>
                   <p className="text-gray-300 text-sm">{ghoBalance.hStr}</p>
-                  <p className="cursor-pointer text-sm hover:text-white text-gray-300 pr-1 font-semibold transition-all">
+                  <p
+                    className="cursor-pointer text-sm hover:text-white text-gray-300 pr-1 font-semibold transition-all"
+                    onClick={() => setFromInput(ghoBalance?.hStr)}
+                  >
                     MAX
                   </p>
                 </>
@@ -60,6 +77,8 @@ export const Home = () => {
             <input
               type="number"
               id="amount"
+              value={toInput}
+              onChange={(e) => setToInput(e.target.value)}
               className="text-3xl bg-transparent text-white pl-0 w-[50%]"
               placeholder="0.0"
             />
@@ -89,7 +108,7 @@ export const Home = () => {
 
         <button>
           <p className="text-gray-300 text-xl font-medium bg-primary w-full py-3 rounded-xl">
-            Approve
+            Approve and Send
           </p>
         </button>
       </section>

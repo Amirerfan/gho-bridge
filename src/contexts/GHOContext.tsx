@@ -5,20 +5,28 @@ import {
   useEffect,
   useState,
 } from 'react';
-import { useGhoBalanceOf } from '../abis/types/generated';
+import {
+  useGhoBalanceOf,
+  useGhoUsdLatestRoundData,
+} from '../abis/types/generated';
 import { w3bNumberFromBigint } from '../utils/web3';
 import { W3bNumber } from '../types/web3';
 import { useAccount } from 'wagmi';
 
 const GHOContext = createContext<{
   ghoBalance: W3bNumber | undefined;
+  ghoUsdPrice: W3bNumber | undefined;
 }>({
   ghoBalance: undefined,
+  ghoUsdPrice: undefined,
 });
 
 const GHOProvider = ({ children }: { children: ReactNode }) => {
   const { address: walletAddress } = useAccount();
 
+  const [ghoUsdPrice, setGhoUsdPrice] = useState<W3bNumber | undefined>(
+    undefined,
+  );
   const [ghoBalance, setGhoBalance] = useState<W3bNumber | undefined>(
     undefined,
   );
@@ -34,10 +42,19 @@ const GHOProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [ghoBalanceData]);
 
+  const { data: ghoUsdPriceData } = useGhoUsdLatestRoundData({});
+
+  useEffect(() => {
+    if (ghoUsdPriceData) {
+      setGhoUsdPrice(w3bNumberFromBigint(ghoUsdPriceData[1], 8));
+    }
+  }, [ghoUsdPriceData]);
+
   return (
     <GHOContext.Provider
       value={{
         ghoBalance,
+        ghoUsdPrice,
       }}
     >
       {children}
