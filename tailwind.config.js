@@ -4,11 +4,16 @@ export default {
   theme: {
     extend: {
       colors: {
-        'primary': '#2D3250',
-        'primary-light': '#424769',
+        'primary': '#1e2131',
+        'primary-light': '#25283d',
         'primary-light2': '#7077A1',
-        'secondary': '#F6B17A',
-        'black': '#08080c',
+        'secondary': '#53b7c4',
+        'black': '#131313',
+        'black-900': '#151515',
+        'black-800': '#171717',
+        'black-700': '#191919',
+        'black-600': '#1B1B1B',
+        'black-500': '#1D1D1D',
         'white': '#eaeaea',
       }
     },
