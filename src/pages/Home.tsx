@@ -32,7 +32,7 @@ export const Home = () => {
               placeholder="0.0"
             />
             <p className="text-secondary text-sm font-medium mt-1">
-              ${ghoUsdPrice && ghoUsdPrice.dsp}
+              ${ghoUsdPrice !== undefined && ghoUsdPrice.dsp}
               {fromInput && ghoUsdPrice
                 ? ' x ' +
                   fromInput +
@@ -43,9 +43,9 @@ export const Home = () => {
           </div>
           <div className="flex flex-col gap-2 rounded-xl w-[50%] py-0.5 justify-start h-full items-end">
             <div className="flex gap-2 items-center justify-center">
-              {ghoBalance && (
+              {ghoBalance !== undefined && (
                 <>
-                  <p className="text-gray-300 text-sm">{ghoBalance.hStr}</p>
+                  <p className="text-gray-300 text-sm">{ghoBalance.dsp}</p>
                   <p
                     className="cursor-pointer text-sm hover:text-white text-gray-300 pr-1 font-semibold transition-all"
                     onClick={() => setFromInput(ghoBalance?.hStr)}
@@ -88,9 +88,7 @@ export const Home = () => {
             <div className="flex gap-2 items-center justify-center">
               {ghoBalance && (
                 <>
-                  <p className="text-gray-300 text-sm pr-1">
-                    {ghoBalance.hStr}
-                  </p>
+                  <p className="text-gray-300 text-sm pr-1">{ghoBalance.dsp}</p>
                   {/*<p className="cursor-pointer text-sm hover:text-white text-gray-300 font-semibold transition-all"></p>*/}
                 </>
               )}

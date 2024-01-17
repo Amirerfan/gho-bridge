@@ -34,18 +34,21 @@ const GHOProvider = ({ children }: { children: ReactNode }) => {
   const { data: ghoBalanceData } = useGhoBalanceOf({
     args: walletAddress ? [walletAddress] : undefined,
     enabled: !!walletAddress,
+    watch: true,
   });
 
   useEffect(() => {
-    if (ghoBalanceData) {
+    if (ghoBalanceData !== undefined) {
       setGhoBalance(w3bNumberFromBigint(ghoBalanceData));
     }
   }, [ghoBalanceData]);
 
-  const { data: ghoUsdPriceData } = useGhoUsdLatestRoundData({});
+  const { data: ghoUsdPriceData } = useGhoUsdLatestRoundData({
+    watch: true,
+  });
 
   useEffect(() => {
-    if (ghoUsdPriceData) {
+    if (ghoUsdPriceData !== undefined) {
       setGhoUsdPrice(w3bNumberFromBigint(ghoUsdPriceData[1], 8));
     }
   }, [ghoUsdPriceData]);
