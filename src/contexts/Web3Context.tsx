@@ -1,7 +1,8 @@
 import { WagmiConfig, createConfig } from 'wagmi';
 import { ConnectKitProvider, getDefaultConfig } from 'connectkit';
-import { createContext, ReactNode } from 'react';
+import { createContext, ReactNode, useContext } from 'react';
 import { sepolia } from 'wagmi/chains';
+import { Address } from 'viem';
 
 const config = createConfig(
   getDefaultConfig({
@@ -27,4 +28,14 @@ const Web3Provider = ({ children }: { children: ReactNode }) => {
   );
 };
 
-export { Web3Context, Web3Provider };
+const useWeb3Context = () => {
+  const context = useContext(Web3Context);
+
+  if (context === undefined) {
+    throw new Error('useWeb3Context must be used within a Web3Provider');
+  }
+
+  return context;
+};
+
+export { Web3Context, Web3Provider, useWeb3Context };
