@@ -32,11 +32,11 @@ export const Home = () => {
               placeholder="0.0"
             />
             <p className="text-secondary text-sm font-medium mt-1">
-              ${ghoUsdPrice !== undefined && ghoUsdPrice.dsp}
+              ${ghoUsdPrice !== undefined && ghoUsdPrice.dsp.toFixed(2)}
               {fromInput && ghoUsdPrice
                 ? ' x ' +
                   fromInput +
-                  ' = $' +
+                  ' ≈ $' +
                   (ghoUsdPrice.dsp * Number(fromInput)).toFixed(2)
                 : ' (1 GHO)'}
             </p>

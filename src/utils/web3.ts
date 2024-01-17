@@ -7,8 +7,8 @@ export function w3bNumberFromBigint(bigint: bigint, decimals = 18): W3bNumber {
     dsp:
       Math.floor(
         Number(ethers.formatEther(bigint * BigInt(10 ** 18 / 10 ** decimals))) *
-          100,
-      ) / 100,
+          10000000,
+      ) / 10000000,
     big: bigint,
     bigStr: bigint.toString(),
   };
