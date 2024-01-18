@@ -1,10 +1,14 @@
 import { useGHOContext } from '../contexts/GHOContext';
 import { useState } from 'react';
+import useSnowContract from '../hooks/useSnowContract';
+import { w3bNumberFromBigint, w3bNumberFromString } from '../utils/web3';
 
 export const Home = () => {
   const { ghoBalance, ghoUsdPrice } = useGHOContext();
   const [fromInput, setFromInput] = useState('');
   const [toInput, setToInput] = useState('');
+
+  const { approveAndFrost } = useSnowContract();
 
   return (
     <div className="flex-1 flex items-center justify-center flex-col gap-5">
@@ -104,10 +108,11 @@ export const Home = () => {
           </div>
         </div>
 
-        <button>
-          <p className="text-gray-300 text-xl font-medium bg-primary w-full py-3 rounded-xl">
-            Approve and Send
-          </p>
+        <button
+          className="text-gray-300 text-xl font-medium bg-primary w-full py-3 rounded-xl hover:bg-primary-light transition-all hover:text-white mt-3"
+          onClick={() => approveAndFrost(w3bNumberFromString(fromInput))}
+        >
+          Approve and Send
         </button>
       </section>
     </div>
