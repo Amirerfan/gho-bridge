@@ -9,10 +9,12 @@ function App() {
     <div className="app">
       <BrowserRouter>
         <Navbar />
-        <Routes>
-          <Route path="/bridge" element={<Home />} />
-          <Route path="/" element={<UnifiedLiquidity />} />
-        </Routes>
+        <div className="page">
+          <Routes>
+            <Route path="/bridge" element={<Home />} />
+            <Route path="/" element={<UnifiedLiquidity />} />
+          </Routes>
+        </div>
       </BrowserRouter>
     </div>
   );

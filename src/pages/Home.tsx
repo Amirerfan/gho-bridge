@@ -11,7 +11,7 @@ export const Home = () => {
   const { approveAndFrost } = useSnowContract();
 
   return (
-    <div className="flex-1 flex items-center justify-center flex-col gap-5">
+    <div className="flex items-center justify-center flex-col gap-5">
       <h1 className="text-4xl font-bold text-white">GHO Bridge</h1>
       <p className="text-secondary text-xl font-semibold mb-5">
         Bridge your GHO tokens from Ethereum to polygon network.
