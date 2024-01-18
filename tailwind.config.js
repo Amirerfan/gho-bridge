@@ -9,6 +9,7 @@ export default {
         'primary-light-2': '#292d46',
         'primary-light-3': '#323757',
         secondary: '#53b7c4',
+        'secondary-dark': '#4fabb7',
         black: '#131313',
         'black-900': '#151515',
         'black-800': '#171717',

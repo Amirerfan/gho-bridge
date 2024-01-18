@@ -8,6 +8,7 @@
     -webkit-appearance: none;
     margin: 0;
   }
+
   input {
     &:active,
     &:focus {
@@ -18,6 +19,7 @@
 
 * {
   @apply box-border m-0 p-0;
+  @apply select-none;
 }
 
 .app {
@@ -26,4 +28,30 @@
 
 .page {
   @apply flex-1 min-h-[calc(100vh-64px)] flex flex-col justify-center;
+}
+
+.btn {
+  @apply px-4 py-2 rounded-md text-white font-bold text-lg transition-all duration-300 ease-in-out cursor-pointer;
+  @apply bg-primary bg-gradient-to-r from-primary to-secondary;
+
+  &--small {
+    @apply px-2.5 py-1.5 text-sm rounded-xl font-medium;
+  }
+
+  &--medium {
+    @apply px-4 py-2 text-lg;
+  }
+
+  &--large {
+    @apply px-6 py-3 text-xl;
+  }
+
+  &--secondary {
+    @apply from-secondary to-secondary text-primary hover:from-secondary-dark hover:to-secondary-dark;
+  }
+
+  &--disabled {
+    @apply bg-gray-400 bg-gradient-to-r from-gray-400 to-gray-400 cursor-not-allowed hover:from-gray-400 hover:to-gray-400;
+  }
+
 }
