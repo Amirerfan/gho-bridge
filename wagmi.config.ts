@@ -4,9 +4,14 @@ import snowSepoliaABI from './src/abis/Sepolia/Snow';
 import ghoUsdSepoliaABI from './src/abis/Sepolia/GHO-USD';
 import { react } from '@wagmi/cli/plugins';
 import { SupportedChainId } from './src/constants/chains';
-import { AAVE_UI_POOL_DATA_PROVIDER_ADDRESS } from './src/constants/addresses';
+import {
+  AAVE_UI_POOL_DATA_PROVIDER_ADDRESS,
+  POOL_ADDRESS,
+} from './src/constants/addresses';
 import aaveUiPoolDataProviderV3SepoliaABI from './src/abis/Sepolia/AaveUiPoolDataProviderV3';
 import aaveUiPoolDataProviderV3MumbaiABI from './src/abis/Mumbai/AaveUiPoolDataProviderV3';
+import poolSepoliaABI from './src/abis/Sepolia/Pool';
+import poolMumbaiABI from './src/abis/Mumbai/Pool';
 
 export default defineConfig({
   out: 'src/abis/types/generated.ts',
@@ -35,6 +40,16 @@ export default defineConfig({
       name: 'aaveUiPoolDataProviderMumbai',
       address: AAVE_UI_POOL_DATA_PROVIDER_ADDRESS[SupportedChainId.MUMBAI],
       abi: aaveUiPoolDataProviderV3MumbaiABI,
+    },
+    {
+      name: 'poolSepolia',
+      address: POOL_ADDRESS[SupportedChainId.SEPOLIA],
+      abi: poolSepoliaABI,
+    },
+    {
+      name: 'poolMumbai',
+      address: POOL_ADDRESS[SupportedChainId.MUMBAI],
+      abi: poolMumbaiABI,
     },
   ],
   plugins: [react()],
