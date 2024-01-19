@@ -5,6 +5,7 @@ import { useCollateralCoinsContext } from '../contexts/CollateralCoinsContext';
 import { useAaveUiPoolDataProviderV3Context } from '../contexts/AaveUiPoolDataProviderV3Context';
 import useMergeCollateralData from '../hooks/useMergeCollateralData';
 import { TableData } from '../types/tableData';
+import { Link } from 'react-router-dom';
 
 const UnifiedLiquidity = () => {
   const [selectedOption, setSelectedOption] = useState('ALL');
@@ -37,9 +38,9 @@ const UnifiedLiquidity = () => {
           {/*  </span>*/}
           {/*</label>*/}
         </span>
-        <button className="btn btn--primary btn--medium ml-auto">
+        <Link to="/borrow" className="btn btn--primary btn--medium ml-auto">
           Borrow GHO
-        </button>
+        </Link>
       </div>
 
       <CollateralTable
