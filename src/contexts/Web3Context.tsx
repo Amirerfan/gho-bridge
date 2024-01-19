@@ -1,15 +1,14 @@
 import { WagmiConfig, createConfig } from 'wagmi';
 import { ConnectKitProvider, getDefaultConfig } from 'connectkit';
 import { createContext, ReactNode, useContext } from 'react';
-import { sepolia } from 'wagmi/chains';
-import { Address } from 'viem';
+import { polygonMumbai, sepolia } from 'wagmi/chains';
 
 const config = createConfig(
   getDefaultConfig({
     alchemyId: process.env.ALCHEMY_ID,
     walletConnectProjectId: process.env.WALLETCONNECT_PROJECT_ID!,
 
-    chains: [sepolia],
+    chains: [sepolia, polygonMumbai],
 
     appName: 'GHO Bridge',
     appIcon: 'https://s2.coinmarketcap.com/static/img/coins/64x64/23508.png',

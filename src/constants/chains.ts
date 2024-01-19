@@ -1,5 +1,6 @@
 export enum SupportedChainId {
   SEPOLIA = 11155111,
+  MUMBAI = 80001,
 }
 
 export function getCurrentChainId(): SupportedChainId {
