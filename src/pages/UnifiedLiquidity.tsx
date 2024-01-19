@@ -38,8 +38,17 @@ const UnifiedLiquidity = () => {
           {/*  </span>*/}
           {/*</label>*/}
         </span>
-        <Link to="/borrow" className="btn btn--primary btn--medium ml-auto">
-          Borrow GHO
+        <Link
+          to="/borrow"
+          className="btn btn--primary btn--medium ml-auto flex gap-1.5 items-center"
+        >
+          Borrow
+          <img
+            className="w-5 ml-1.5 mt-0.5"
+            src="https://app.aave.com/icons/tokens/gho.svg"
+            alt=""
+          />
+          GHO
         </Link>
       </div>
 

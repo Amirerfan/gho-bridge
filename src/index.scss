@@ -27,7 +27,7 @@
 }
 
 .page {
-  @apply flex-1 min-h-[calc(100vh-64px)] flex flex-col justify-center;
+  @apply flex-1 min-w-[880px] min-h-[calc(100vh-64px)] flex flex-col justify-start pt-20;
 }
 
 .btn {
