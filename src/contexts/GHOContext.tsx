@@ -44,7 +44,7 @@ const GHOProvider = ({ children }: { children: ReactNode }) => {
 
   const { data: ghoBalanceData } = useGhoBalanceOf({
     args: walletAddress ? [walletAddress] : undefined,
-    enabled: !!walletAddress,
+    enabled: false,
     account: walletAddress,
     watch: true,
   });
@@ -58,6 +58,7 @@ const GHOProvider = ({ children }: { children: ReactNode }) => {
   const { data: ghoUsdPriceData } = useGhoUsdLatestRoundData({
     account: walletAddress,
     watch: true,
+    enabled: false,
   });
 
   useEffect(() => {
@@ -70,7 +71,7 @@ const GHOProvider = ({ children }: { children: ReactNode }) => {
     args: walletAddress
       ? [walletAddress, SNOW_ADDRESS[getCurrentChainId()]]
       : undefined,
-    enabled: !!walletAddress,
+    enabled: false,
     watch: true,
   });
 

@@ -1,23 +1,46 @@
-import { WagmiConfig, createConfig } from 'wagmi';
+import { WagmiConfig, createConfig, configureChains } from 'wagmi';
 import { ConnectKitProvider, getDefaultConfig } from 'connectkit';
-import { createContext, ReactNode, useContext } from 'react';
+import { createContext, ReactNode, useCallback, useContext } from 'react';
 import { polygonMumbai, sepolia } from 'wagmi/chains';
-
-const config = createConfig(
-  getDefaultConfig({
-    alchemyId: process.env.ALCHEMY_ID,
-    walletConnectProjectId: process.env.WALLETCONNECT_PROJECT_ID!,
-
-    chains: [sepolia, polygonMumbai],
-
-    appName: 'GHO Bridge',
-    appIcon: 'https://s2.coinmarketcap.com/static/img/coins/64x64/23508.png',
-  }),
-);
+import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
+import { SupportedChainId } from '../constants/chains';
 
 const Web3Context = createContext({});
 
 const Web3Provider = ({ children }: { children: ReactNode }) => {
+  const getRPCURL = useCallback((chainID: number) => {
+    switch (chainID) {
+      case SupportedChainId.SEPOLIA:
+        return 'https://ethereum-sepolia.publicnode.com';
+      case SupportedChainId.MUMBAI:
+        return 'https://polygon-mumbai-bor.publicnode.com';
+      default:
+        return 'https://ethereum-sepolia.publicnode.com';
+    }
+  }, []);
+
+  const { publicClient, chains } = configureChains(
+    [polygonMumbai, sepolia],
+    [
+      jsonRpcProvider({
+        rpc: (chain) => ({
+          http: getRPCURL(chain.id),
+        }),
+      }),
+    ],
+  );
+
+  const config = createConfig(
+    getDefaultConfig({
+      alchemyId: process.env.ALCHEMY_ID,
+      walletConnectProjectId: process.env.WALLETCONNECT_PROJECT_ID!,
+      chains,
+      publicClient,
+      appName: 'GHO Bridge',
+      appIcon: 'https://s2.coinmarketcap.com/static/img/coins/64x64/23508.png',
+    }),
+  );
+
   return (
     <WagmiConfig config={config}>
       <ConnectKitProvider>

@@ -2,10 +2,20 @@ import CollateralTable from '../components/CollateralTable';
 import GroupButton from '../components/GroupButton';
 import { useState } from 'react';
 import { useCollateralCoinsContext } from '../contexts/CollateralCoinsContext';
+import { useAaveUiPoolDataProviderV3Context } from '../contexts/AaveUiPoolDataProviderV3Context';
+import useMergeCollateralData from '../hooks/useMergeCollateralData';
 
 const UnifiedLiquidity = () => {
   const [selectedOption, setSelectedOption] = useState('ALL');
   const { supportedCoins } = useCollateralCoinsContext();
+  const { aaveUiPoolDataProviderSepolia, aaveUiPoolDataProviderMumbai } =
+    useAaveUiPoolDataProviderV3Context();
+
+  const { collateralData } = useMergeCollateralData({
+    supportedCoins,
+    aaveUiPoolDataProviderSepolia,
+    aaveUiPoolDataProviderMumbai,
+  });
 
   return (
     <div className="unified-collateral-page gap-1 flex flex-col">
