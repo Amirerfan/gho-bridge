@@ -22,7 +22,7 @@ const CollateralTable = ({
             <th colSpan={2} scope="col" className="px-6 py-3 text-center">
               Chain
             </th>
-            <th rowSpan={2} scope="col" className="px-6 py-3">
+            <th colSpan={2} scope="col" className="px-6 py-3 text-center">
               can be collateral
             </th>
             <th rowSpan={2} scope="col" className="px-6 py-3">
@@ -30,6 +30,25 @@ const CollateralTable = ({
             </th>
           </tr>
           <tr>
+            <th
+              scope="col"
+              className="px-6 py-3 gap-1.5 flex items-center text-center"
+            >
+              <img
+                src="https://imagedelivery.net/XQ6LDks1pWNDtTDAw7o9nA/70fb0697-72bf-4232-ed91-1c088911c800/public"
+                alt=""
+                className="w-6"
+              />
+              <p>Sepolia</p>
+            </th>
+            <th scope="col" className="px-6 py-3 text-center">
+              <img
+                src="https://imagedelivery.net/XQ6LDks1pWNDtTDAw7o9nA/1f9a04e7-bf43-476d-4705-506297e2de00/public"
+                alt=""
+                className="w-5 inline mr-2"
+              />
+              Mumbai
+            </th>
             <th
               scope="col"
               className="px-6 py-3 gap-1.5 flex items-center text-center"
@@ -67,7 +86,13 @@ const CollateralTable = ({
               <td className="px-6 py-4">Silver</td>
               <td className="px-6 py-4">Laptop</td>
               <td className="px-6 py-4">
-                <div className="flex items-center">
+                <div className="flex items-center justify-center">
+                  <div className="h-2.5 w-2.5 rounded-full bg-red-500 me-2"></div>
+                  No
+                </div>
+              </td>
+              <td className="px-6 py-4">
+                <div className="flex items-center justify-center">
                   <div className="h-2.5 w-2.5 rounded-full bg-red-500 me-2"></div>
                   No
                 </div>
@@ -91,6 +116,7 @@ const CollateralTable = ({
             </th>
             <td className="px-6 py-4">White</td>
             <td className="px-6 py-4">Laptop PC</td>
+            <td className="px-6 py-4"></td>
             <td className="px-6 py-4"></td>
             <td className="px-6 py-4">
               <a
