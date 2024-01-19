@@ -15,7 +15,7 @@ const CollateralTable = ({
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-xl">
       <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-        <thead className="text-xs text-gray-200 uppercase bg-primary dark:bg-primary dark:text-gray-200">
+        <thead className="text-xs text-gray-200 uppercase bg-gradient-to-r from-primary-light-2 to-primary dark:bg-primary dark:text-gray-200">
           <tr>
             <th rowSpan={2} scope="col" className="px-6 py-3 text-center">
               Symbol
@@ -140,7 +140,7 @@ const CollateralTable = ({
               </td>
             </tr>
           ))}
-          <tr className="bg-white border-b dark:bg-primary dark:border-gray-700">
+          <tr className="bg-white border-b dark:bg-gradient-to-r dark:from-primary-light-2 dark:to-primary dark:border-gray-700">
             <th
               scope="row"
               className="px-6 py-4 font-medium flex gap-1 items-center text-gray-900 whitespace-nowrap dark:text-white"

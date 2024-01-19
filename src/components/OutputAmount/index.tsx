@@ -1,6 +1,6 @@
 const OutputAmount = ({}) => {
   return (
-    <div className="relative rounded-xl bg-primary p-5 flex w-full items-center">
+    <div className="relative rounded-xl bg-gradient-to-r from-primary-light-2 to-primary p-5 flex w-full items-center">
       <div className="input-left flex flex-col gap-1">
         <label htmlFor="amount" className="text-white text-sm font-medium">
           From Etheruem

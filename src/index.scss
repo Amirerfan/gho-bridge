@@ -32,7 +32,7 @@
 
 .btn {
   @apply px-4 py-2 rounded-md text-white font-bold text-lg transition-all duration-300 ease-in-out cursor-pointer;
-  @apply bg-primary-light;
+  @apply bg-gradient-to-r from-primary-light-2 to-primary;
 
   &--small {
     @apply px-2.5 py-1.5 text-sm rounded-xl font-medium;

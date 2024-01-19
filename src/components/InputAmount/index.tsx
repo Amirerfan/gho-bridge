@@ -10,7 +10,7 @@ const InputAmount = ({
   icon: string;
 }) => {
   return (
-    <div className="relative rounded-xl bg-primary p-5 flex w-full items-center">
+    <div className="relative rounded-xl bg-gradient-to-r from-primary-light-2 to-primary p-5 flex w-full items-center">
       <div className="input-left w-full flex flex-col gap-1">
         <div className="flex w-full justify-between">
           <label
