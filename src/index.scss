@@ -32,14 +32,14 @@
 
 .btn {
   @apply px-4 py-2 rounded-md text-white font-bold text-lg transition-all duration-300 ease-in-out cursor-pointer;
-  @apply bg-primary bg-gradient-to-r from-primary to-secondary;
+  @apply bg-primary-light;
 
   &--small {
     @apply px-2.5 py-1.5 text-sm rounded-xl font-medium;
   }
 
   &--medium {
-    @apply px-4 py-2 text-lg;
+    @apply px-4 py-2 text-lg  rounded-xl font-medium;
   }
 
   &--large {
