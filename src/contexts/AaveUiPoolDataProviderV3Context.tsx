@@ -6,9 +6,11 @@ import {
   useState,
 } from 'react';
 import {
+  useAaveUiPoolDataProviderMumbaiGetReservesData,
   useAaveUiPoolDataProviderMumbaiGetUserReservesData,
   useAaveUiPoolDataProviderSepoliaGetUserReservesData,
 } from '../abis/types/generated';
+
 import { SupportedChainId } from '../constants/chains';
 import { useAccount } from 'wagmi';
 import { POOL_ADDRESS_PROVIDER_ADDRESS } from '../constants/addresses';
@@ -28,9 +30,20 @@ const AaveUiPoolDataProviderV3Provider = ({
 }) => {
   const { address: walletAddress } = useAccount();
   const [aaveUiPoolDataProviderSepolia, setAaveUiPoolDataProviderSepolia] =
-    useState<undefined | any>(undefined);
+    useState<
+      | undefined
+      | ReturnType<
+          typeof useAaveUiPoolDataProviderSepoliaGetUserReservesData
+        >['data']
+    >(undefined);
+
   const [aaveUiPoolDataProviderMumbai, setAaveUiPoolDataProviderMumbai] =
-    useState<undefined | any>(undefined);
+    useState<
+      | undefined
+      | ReturnType<
+          typeof useAaveUiPoolDataProviderMumbaiGetReservesData
+        >['data']
+    >(undefined);
 
   const { data: aaveUiPoolDataProviderSepoliaData } =
     useAaveUiPoolDataProviderSepoliaGetUserReservesData({
@@ -47,11 +60,11 @@ const AaveUiPoolDataProviderV3Provider = ({
     });
 
   useEffect(() => {
-    if (aaveUiPoolDataProviderSepolia) {
+    if (aaveUiPoolDataProviderSepoliaData) {
       setAaveUiPoolDataProviderSepolia(aaveUiPoolDataProviderSepoliaData);
       console.log(aaveUiPoolDataProviderSepoliaData);
     } else console.log('no aaveUiPoolDataProviderSepolia');
-  }, [aaveUiPoolDataProviderSepolia]);
+  }, [aaveUiPoolDataProviderSepoliaData]);
 
   const { data: aaveUiPoolDataProviderMumbaiData } =
     useAaveUiPoolDataProviderMumbaiGetUserReservesData({
@@ -68,11 +81,11 @@ const AaveUiPoolDataProviderV3Provider = ({
     });
 
   useEffect(() => {
-    if (aaveUiPoolDataProviderMumbai) {
+    if (aaveUiPoolDataProviderMumbaiData) {
       setAaveUiPoolDataProviderMumbai(aaveUiPoolDataProviderMumbaiData);
       console.log(aaveUiPoolDataProviderMumbaiData);
     } else console.log('no aaveUiPoolDataProviderMumbai');
-  }, [aaveUiPoolDataProviderMumbai]);
+  }, [aaveUiPoolDataProviderMumbaiData]);
 
   return (
     <AaveUiPoolDataProviderV3Context.Provider

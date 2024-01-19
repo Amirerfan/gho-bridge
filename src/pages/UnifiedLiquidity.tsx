@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useCollateralCoinsContext } from '../contexts/CollateralCoinsContext';
 import { useAaveUiPoolDataProviderV3Context } from '../contexts/AaveUiPoolDataProviderV3Context';
 import useMergeCollateralData from '../hooks/useMergeCollateralData';
+import { TableData } from '../types/tableData';
 
 const UnifiedLiquidity = () => {
   const [selectedOption, setSelectedOption] = useState('ALL');
@@ -11,7 +12,7 @@ const UnifiedLiquidity = () => {
   const { aaveUiPoolDataProviderSepolia, aaveUiPoolDataProviderMumbai } =
     useAaveUiPoolDataProviderV3Context();
 
-  const { collateralData } = useMergeCollateralData({
+  const { tableData } = useMergeCollateralData({
     supportedCoins,
     aaveUiPoolDataProviderSepolia,
     aaveUiPoolDataProviderMumbai,
