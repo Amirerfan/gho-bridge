@@ -1,7 +1,12 @@
 import InputAmount from '../components/InputAmount';
 import OutputAmount from '../components/OutputAmount';
+import { usePoolContext } from '../contexts/PoolContext';
 
 const Borrow = () => {
+  const { poolDataSepolia, poolDataMumbai } = usePoolContext();
+
+  console.log(poolDataSepolia, poolDataMumbai);
+
   return (
     <div className="borrow-page gap-1 flex flex-col">
       <div className="borrow-header mb-12">
