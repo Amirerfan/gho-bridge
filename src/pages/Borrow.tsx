@@ -1,15 +1,35 @@
+import InputAmount from '../components/InputAmount';
+import OutputAmount from '../components/OutputAmount';
+
 const Borrow = () => {
   return (
     <div className="borrow-page gap-1 flex flex-col">
-      <p className="text-white text-2xl font-bold flex gap-1 items-center">
-        Borrow
+      <div className="borrow-header mb-12">
+        <p className="text-white text-2xl font-bold flex gap-1 items-center">
+          Borrow
+          <img
+            className="w-7 ml-2 mt-0.5"
+            src="https://app.aave.com/icons/tokens/gho.svg"
+            alt=""
+          />
+          GHO
+        </p>
+      </div>
+
+      <section className="card">
+        <div className="flex justify-between w-full mb-3 gap-3">
+          <InputAmount />
+          <InputAmount />
+        </div>
         <img
-          className="w-7 ml-2 mt-0.5"
-          src="https://app.aave.com/icons/tokens/gho.svg"
+          className="mx-auto mb-3"
+          src="/assets/images/merge-icon.svg"
           alt=""
         />
-        GHO
-      </p>
+        <div className="flex items-center justify-center">
+          <OutputAmount />
+        </div>
+      </section>
     </div>
   );
 };

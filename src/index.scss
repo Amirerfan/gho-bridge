@@ -27,7 +27,7 @@
 }
 
 .page {
-  @apply flex-1 min-w-[880px] min-h-[calc(100vh-64px)] flex flex-col justify-start pt-20;
+  @apply flex-1 min-w-[945px] min-h-[calc(100vh-64px)] flex flex-col justify-start pt-20;
 }
 
 .btn {
@@ -47,7 +47,7 @@
   }
 
   &--secondary {
-    @apply from-secondary to-secondary text-primary hover:from-secondary-dark hover:to-secondary-dark;
+    @apply bg-secondary from-secondary to-secondary text-primary hover:from-secondary-dark hover:to-secondary-dark;
   }
 
   &--disabled {
