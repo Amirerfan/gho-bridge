@@ -1,6 +1,7 @@
 import InputAmount from '../components/InputAmount';
 import OutputAmount from '../components/OutputAmount';
 import { usePoolContext } from '../contexts/PoolContext';
+import { w3bNumberFromBigint } from '../utils/web3';
 
 const Borrow = () => {
   const { poolDataSepolia, poolDataMumbai } = usePoolContext();
@@ -23,8 +24,16 @@ const Borrow = () => {
 
       <section className="card">
         <div className="flex justify-between w-full mb-3 gap-3">
-          <InputAmount />
-          <InputAmount />
+          <InputAmount
+            max={w3bNumberFromBigint(poolDataSepolia[2], 8)}
+            title="Sepolia"
+            icon="https://imagedelivery.net/XQ6LDks1pWNDtTDAw7o9nA/70fb0697-72bf-4232-ed91-1c088911c800/public"
+          />
+          <InputAmount
+            max={w3bNumberFromBigint(poolDataMumbai[2], 8)}
+            title="Mumbai"
+            icon="https://imagedelivery.net/XQ6LDks1pWNDtTDAw7o9nA/1f9a04e7-bf43-476d-4705-506297e2de00/public"
+          />
         </div>
         <img
           className="mx-auto mb-3"
