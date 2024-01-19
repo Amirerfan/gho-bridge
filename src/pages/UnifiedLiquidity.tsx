@@ -1,9 +1,11 @@
 import CollateralTable from '../components/CollateralTable';
 import GroupButton from '../components/GroupButton';
 import { useState } from 'react';
+import { useCollateralCoinsContext } from '../contexts/CollateralCoinsContext';
 
 const UnifiedLiquidity = () => {
   const [selectedOption, setSelectedOption] = useState('ALL');
+  const { supportedCoins } = useCollateralCoinsContext();
 
   return (
     <div className="unified-collateral-page gap-1 flex flex-col">
@@ -28,7 +30,7 @@ const UnifiedLiquidity = () => {
       </div>
 
       <CollateralTable
-        data={[]}
+        data={supportedCoins}
         loading={false}
         error={false}
         onRowClick={false}

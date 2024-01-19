@@ -4,6 +4,7 @@ import './index.scss';
 import App from './App';
 import { Web3Provider } from './contexts/Web3Context';
 import { GHOProvider } from './contexts/GHOContext';
+import { CollateralCoinsProvider } from './contexts/CollateralCoinsContext';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
@@ -11,9 +12,11 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Web3Provider>
-      <GHOProvider>
-        <App />
-      </GHOProvider>
+      <CollateralCoinsProvider>
+        <GHOProvider>
+          <App />
+        </GHOProvider>
+      </CollateralCoinsProvider>
     </Web3Provider>
   </React.StrictMode>,
 );

@@ -1,6 +1,7 @@
 import { SupportedChainId } from './chains';
+import { SupportedCoin } from '../types/coins';
 
-export const SupportedCoins = [
+export const SupportedCoins: SupportedCoin[] = [
   {
     id: 1,
     icon: 'https://app.aave.com/icons/tokens/dai.svg',

@@ -1,10 +1,12 @@
+import { SupportedCoin } from '../../types/coins';
+
 const CollateralTable = ({
   data,
   loading,
   error,
   onRowClick,
 }: {
-  data: any;
+  data: SupportedCoin[];
   loading: boolean;
   error: any;
   onRowClick: any;
@@ -54,64 +56,33 @@ const CollateralTable = ({
           </tr>
         </thead>
         <tbody>
-          <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-            <th
-              scope="row"
-              className="px-6 py-4 flex gap-1 items-center font-medium text-gray-900 whitespace-nowrap dark:text-white"
-            >
-              <img
-                src="https://imagedelivery.net/XQ6LDks1pWNDtTDAw7o9nA/d6bc0032-812a-4289-ff2b-6cdb93482f00/public"
-                alt=""
-                className="w-6"
-              />
-              BTC
-            </th>
-            <td className="px-6 py-4">Silver</td>
-            <td className="px-6 py-4">Laptop</td>
-            <td className="px-6 py-4">
-              <div className="flex items-center">
-                <div className="h-2.5 w-2.5 rounded-full bg-red-500 me-2"></div>
-                No
-              </div>
-            </td>
-            <td className="px-6 py-4">
-              <a
-                href="#"
-                className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+          {data.map((coin) => (
+            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+              <th
+                scope="row"
+                className="px-6 py-4 flex gap-2 items-center font-medium text-gray-900 whitespace-nowrap dark:text-white"
               >
-                Edit
-              </a>
-            </td>
-          </tr>
-          <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-            <th
-              scope="row"
-              className="px-6 py-4 font-medium flex gap-1 items-center text-gray-900 whitespace-nowrap dark:text-white"
-            >
-              <img
-                src="https://app.aave.com/icons/tokens/eth.svg"
-                alt=""
-                className="w-6"
-              />
-              ETH
-            </th>
-            <td className="px-6 py-4">White</td>
-            <td className="px-6 py-4">Laptop PC</td>
-            <td className="px-6 py-4">
-              <div className="flex items-center">
-                <div className="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div>
-                Yes
-              </div>
-            </td>
-            <td className="px-6 py-4">
-              <a
-                href="#"
-                className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-              >
-                Edit
-              </a>
-            </td>
-          </tr>
+                <img src={coin.icon} alt="" className="w-6" />
+                <p className="">{coin.symbol}</p>
+              </th>
+              <td className="px-6 py-4">Silver</td>
+              <td className="px-6 py-4">Laptop</td>
+              <td className="px-6 py-4">
+                <div className="flex items-center">
+                  <div className="h-2.5 w-2.5 rounded-full bg-red-500 me-2"></div>
+                  No
+                </div>
+              </td>
+              <td className="px-6 py-4">
+                <a
+                  href="#"
+                  className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                >
+                  Edit
+                </a>
+              </td>
+            </tr>
+          ))}
           <tr className="bg-white border-b dark:bg-primary dark:border-gray-700">
             <th
               scope="row"
