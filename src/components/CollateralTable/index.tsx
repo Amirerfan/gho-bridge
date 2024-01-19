@@ -1,4 +1,5 @@
-import { SupportedCoin } from '../../types/coins';
+import { TableData } from '../../types/tableData';
+import { SupportedChainId } from '../../constants/chains';
 
 const CollateralTable = ({
   data,
@@ -6,7 +7,7 @@ const CollateralTable = ({
   error,
   onRowClick,
 }: {
-  data: SupportedCoin[];
+  data: TableData[];
   loading: boolean;
   error: any;
   onRowClick: any;
@@ -16,7 +17,7 @@ const CollateralTable = ({
       <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead className="text-xs text-gray-200 uppercase bg-primary dark:bg-primary dark:text-gray-200">
           <tr>
-            <th rowSpan={2} scope="col" className="px-6 py-3">
+            <th rowSpan={2} scope="col" className="px-6 py-3 text-center">
               Symbol
             </th>
             <th colSpan={2} scope="col" className="px-6 py-3 text-center">
@@ -25,7 +26,7 @@ const CollateralTable = ({
             <th colSpan={2} scope="col" className="px-6 py-3 text-center">
               can be collateral
             </th>
-            <th rowSpan={2} scope="col" className="px-6 py-3">
+            <th rowSpan={2} scope="col" className="px-6 py-3 text-center">
               total
             </th>
           </tr>
@@ -78,32 +79,64 @@ const CollateralTable = ({
             >
               <th
                 scope="row"
-                className="px-6 py-4 flex gap-2 items-center font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                className="px-6 py-4 flex gap-2 items-center font-medium text-white whitespace-nowrap dark:text-white"
               >
                 <img src={coin.icon} alt="" className="w-6" />
                 <p className="">{coin.symbol}</p>
               </th>
-              <td className="px-6 py-4">Silver</td>
-              <td className="px-6 py-4">Laptop</td>
+              <td className="px-6 py-4 text-white">
+                {coin.chainData.find(
+                  (chain) => chain.chainId === SupportedChainId.SEPOLIA,
+                )?.collateral?.dsp || '0.00'}
+              </td>
+              <td className="px-6 py-4 text-white">
+                {coin.chainData.find(
+                  (chain) => chain.chainId === SupportedChainId.MUMBAI,
+                )?.collateral?.dsp || '0.00'}
+              </td>
               <td className="px-6 py-4">
                 <div className="flex items-center justify-center">
-                  <div className="h-2.5 w-2.5 rounded-full bg-red-500 me-2"></div>
-                  No
+                  <div
+                    className={`h-2.5 w-2.5 rounded-full ${
+                      coin.chainData.find(
+                        (chain) => chain.chainId === SupportedChainId.SEPOLIA,
+                      )?.canBeCollateral
+                        ? 'bg-green-500'
+                        : 'bg-red-500'
+                    } me-2`}
+                  ></div>
+                  {coin.chainData.find(
+                    (chain) => chain.chainId === SupportedChainId.SEPOLIA,
+                  )?.canBeCollateral
+                    ? 'Yes'
+                    : 'No'}
                 </div>
               </td>
               <td className="px-6 py-4">
                 <div className="flex items-center justify-center">
-                  <div className="h-2.5 w-2.5 rounded-full bg-red-500 me-2"></div>
-                  No
+                  <div
+                    className={`h-2.5 w-2.5 rounded-full ${
+                      coin.chainData.find(
+                        (chain) => chain.chainId === SupportedChainId.MUMBAI,
+                      )?.canBeCollateral
+                        ? 'bg-green-500'
+                        : 'bg-red-500'
+                    } me-2`}
+                  ></div>
+                  {coin.chainData.find(
+                    (chain) => chain.chainId === SupportedChainId.MUMBAI,
+                  )?.canBeCollateral
+                    ? 'Yes'
+                    : 'No'}
                 </div>
               </td>
-              <td className="px-6 py-4">
-                <a
-                  href="#"
-                  className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                >
-                  Edit
-                </a>
+              <td className="px-6 py-4 text-white font-semibold">
+                <div className="flex items-center">
+                  {coin.chainData.reduce(
+                    (acc, chain) => acc + Number(chain.collateral?.dsp || 0),
+                    0,
+                  )}
+                </div>
               </td>
             </tr>
           ))}
@@ -114,17 +147,44 @@ const CollateralTable = ({
             >
               TOTAL
             </th>
-            <td className="px-6 py-4">White</td>
-            <td className="px-6 py-4">Laptop PC</td>
-            <td className="px-6 py-4"></td>
-            <td className="px-6 py-4"></td>
-            <td className="px-6 py-4">
-              <a
-                href="#"
-                className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-              >
-                Edit
-              </a>
+            <td className="px-6 py-4 text-white font-semibold">
+              {data.reduce(
+                (acc, coin) =>
+                  acc +
+                  Number(
+                    coin.chainData.find(
+                      (chain) => chain.chainId === SupportedChainId.SEPOLIA,
+                    )?.collateral?.dsp || 0,
+                  ),
+                0,
+              )}
+            </td>
+            <td className="px-6 py-4 text-white font-semibold">
+              {data.reduce(
+                (acc, coin) =>
+                  acc +
+                  Number(
+                    coin.chainData.find(
+                      (chain) => chain.chainId === SupportedChainId.MUMBAI,
+                    )?.collateral?.dsp || 0,
+                  ),
+                0,
+              )}
+            </td>
+            <td className="px-6 py-4 text-white font-semibold"></td>
+            <td className="px-6 py-4 text-white font-semibold"></td>
+            <td className="px-6 py-4 text-white font-semibold">
+              {data.reduce(
+                (acc, coin) =>
+                  acc +
+                  Number(
+                    coin.chainData.reduce(
+                      (acc, chain) => acc + Number(chain.collateral?.dsp || 0),
+                      0,
+                    ),
+                  ),
+                0,
+              )}
             </td>
           </tr>
         </tbody>
