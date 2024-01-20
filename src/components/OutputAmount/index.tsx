@@ -32,6 +32,9 @@ const OutputAmount = ({
             <select
               id="countries"
               className="bg-primary-light text-white font-semibold text-sm rounded-xl pr-1 focus:ring-0 focus:border-none block w-full p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-0 dark:focus:border-none"
+              onChange={(e) => {
+                setSelectedChain(Number(e.target.value) as SupportedChainId);
+              }}
             >
               <option
                 className="flex gap-1 font-semibold"
