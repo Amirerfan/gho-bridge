@@ -14,7 +14,7 @@ const CollateralTable = ({
   onRowClick: any;
 }) => {
   return (
-    <div className="relative overflow-x-auto shadow-md sm:rounded-xl">
+    <div className="relative overflow-x-auto shadow-md sm:rounded-xl mb-10">
       <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead className="text-xs text-gray-200 uppercase bg-gradient-to-r from-primary-light-2 to-primary dark:bg-primary dark:text-gray-200">
           <tr>

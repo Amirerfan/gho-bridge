@@ -23,7 +23,7 @@
 }
 
 .app {
-  @apply w-screen h-screen flex flex-col overflow-hidden items-center justify-center bg-primary bg-gradient-to-r from-primary to-secondary;
+  @apply w-screen h-screen flex flex-col overflow-hidden items-center justify-center bg-primary bg-gradient-to-r from-primary to-secondary overflow-y-auto;
 }
 
 .page {

@@ -67,7 +67,7 @@ const useMergeCollateralData = ({
 
   useEffect(() => {
     const tbldt: TableData[] = [];
-    console.log('usdPrices ddd', usdPrices);
+
     supportedCoins.forEach((coin) => {
       const coinData: TableData = {
         id: coin.id,

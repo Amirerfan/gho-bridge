@@ -40,8 +40,6 @@ const GHOProvider = ({ children }: { children: ReactNode }) => {
     undefined,
   );
 
-  console.log(process.env);
-
   const { data: ghoBalanceData } = useGhoBalanceOf({
     args: walletAddress ? [walletAddress] : undefined,
     enabled: false,

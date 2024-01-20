@@ -31,8 +31,10 @@ const useGHOBoxContract = ({
   const requestBorrow = useCallback(
     async (chain: SupportedChainId) => {
       if (chain === SupportedChainId.SEPOLIA) {
+        console.log('amounts', sepoliaAmount, mumbaiAmount);
         await requestBorrowOnSepolia?.();
       } else if (chain === SupportedChainId.MUMBAI) {
+        console.log('amounts', sepoliaAmount, mumbaiAmount);
         await requestBorrowOnMumbai?.();
       }
     },
