@@ -4,7 +4,7 @@ import { useMockGHOContext } from '../../contexts/MockGHOContext';
 
 export const Navbar = () => {
   const { mockGHOSepoliaBalance, mockGHOMumbaiBalance } = useMockGHOContext();
-
+  console.log(mockGHOSepoliaBalance, mockGHOMumbaiBalance);
   return (
     <nav className="h-16 w-full bg-transparent flex items-center justify-between px-6">
       <div className="ml-9 flex items-center">
