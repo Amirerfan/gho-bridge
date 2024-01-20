@@ -36,8 +36,8 @@ const GHO_BOX_ADDRESS: AddressMap = {
 };
 
 const MOCK_GHO_ADDRESS: AddressMap = {
-  [SupportedChainId.SEPOLIA]: '0x78b8B87092309e1a2f0dd793657Fa79016d1BF1D',
-  [SupportedChainId.MUMBAI]: '0x6B0113982FF09Eb5835e6Fba27056b65d7caB49F',
+  [SupportedChainId.SEPOLIA]: '0x151F89E805BDCD69e62dF44eD450b481A48fF31b',
+  [SupportedChainId.MUMBAI]: '0x71D23E6bbaC68c3d9CB3DB77ED75934611dDC5A6',
 };
 
 export {
