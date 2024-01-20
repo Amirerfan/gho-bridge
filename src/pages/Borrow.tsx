@@ -1,11 +1,12 @@
 import InputAmount from '../components/InputAmount';
 import OutputAmount from '../components/OutputAmount';
 import { usePoolContext } from '../contexts/PoolContext';
-import { w3bNumberFromBigint } from '../utils/web3';
-import { useState } from 'react';
+import { w3bNumberFromBigint, w3bNumberFromString } from '../utils/web3';
+import { useCallback, useState } from 'react';
 import { SupportedChainId } from '../constants/chains';
 import { useAaveVariableDebtContext } from '../contexts/AaveVariableDebtContext';
 import { useNetwork, useSwitchNetwork } from 'wagmi';
+import useGHOBoxContract from '../hooks/useGHOBoxContract';
 
 const Borrow = () => {
   const { poolDataSepolia, poolDataMumbai } = usePoolContext();
@@ -20,6 +21,11 @@ const Borrow = () => {
   const [selectedChain, setSelectedChain] = useState<SupportedChainId>(
     SupportedChainId.SEPOLIA,
   );
+
+  const { requestBorrow } = useGHOBoxContract({
+    mumbaiAmount: w3bNumberFromString(mumbaiAmount),
+    sepoliaAmount: w3bNumberFromString(sepoliaAmount),
+  });
 
   return (
     <div className="borrow-page gap-1 flex flex-col">
@@ -73,72 +79,167 @@ const Borrow = () => {
             }
           />
         </div>
-
-        {sepoliaAmount !== '' &&
-        delegateSepolia &&
-        delegateSepolia?.big < BigInt(10 ** 10) ? (
-          chain?.id !== SupportedChainId.SEPOLIA ? (
+        {selectedChain === SupportedChainId.MUMBAI &&
+          (sepoliaAmount !== '' &&
+          delegateSepolia &&
+          delegateSepolia?.big < BigInt(10 ** 10) ? (
+            chain?.id !== SupportedChainId.SEPOLIA ? (
+              <div className="w-full flex justify-end">
+                <button
+                  className="btn btn--large flex gap-1"
+                  onClick={() => {
+                    switchNetwork?.(SupportedChainId.SEPOLIA);
+                  }}
+                >
+                  Switch Network & Delegate
+                </button>
+              </div>
+            ) : (
+              <div className="w-full flex justify-end">
+                <button
+                  className="btn btn--large flex gap-1"
+                  onClick={() =>
+                    approveDelegation({ chainID: SupportedChainId.SEPOLIA })
+                  }
+                >
+                  Delegate
+                </button>
+              </div>
+            )
+          ) : mumbaiAmount != '' &&
+            delegateMumbai &&
+            delegateMumbai?.big < BigInt(10 ** 10) ? (
+            chain?.id !== SupportedChainId.MUMBAI ? (
+              <div className="w-full flex justify-end">
+                <button
+                  className="btn btn--large flex gap-1"
+                  onClick={() => {
+                    switchNetwork?.(SupportedChainId.MUMBAI);
+                  }}
+                >
+                  Switch Network & Delegate
+                </button>
+              </div>
+            ) : (
+              <div className="w-full flex justify-end">
+                <button
+                  className="btn btn--large flex gap-1"
+                  onClick={() =>
+                    approveDelegation({ chainID: SupportedChainId.MUMBAI })
+                  }
+                >
+                  Delegate
+                </button>
+              </div>
+            )
+          ) : chain?.id === selectedChain ? (
             <div className="w-full flex justify-end">
               <button
                 className="btn btn--large flex gap-1"
-                onClick={() => {
-                  switchNetwork?.(SupportedChainId.SEPOLIA);
-                }}
+                onClick={() => requestBorrow(selectedChain)}
               >
-                Switch Network & Delegate
+                Borrow
+                <img
+                  className="w-6 ml-2 mt-0.5"
+                  src="https://app.aave.com/icons/tokens/gho.svg"
+                  alt=""
+                />
+                GHO
               </button>
             </div>
           ) : (
             <div className="w-full flex justify-end">
               <button
                 className="btn btn--large flex gap-1"
-                onClick={() =>
-                  approveDelegation({ chainID: SupportedChainId.SEPOLIA })
-                }
+                onClick={() => {
+                  switchNetwork?.(selectedChain);
+                }}
               >
-                Delegate
+                Switch Network
               </button>
             </div>
-          )
-        ) : mumbaiAmount != '' &&
+          ))}
+
+        {selectedChain === SupportedChainId.SEPOLIA &&
+          (mumbaiAmount !== '' &&
           delegateMumbai &&
           delegateMumbai?.big < BigInt(10 ** 10) ? (
-          chain?.id !== SupportedChainId.MUMBAI ? (
+            chain?.id !== SupportedChainId.MUMBAI ? (
+              <div className="w-full flex justify-end">
+                <button
+                  className="btn btn--large flex gap-1"
+                  onClick={() => {
+                    switchNetwork?.(SupportedChainId.MUMBAI);
+                  }}
+                >
+                  Switch Network & Delegate
+                </button>
+              </div>
+            ) : (
+              <div className="w-full flex justify-end">
+                <button
+                  className="btn btn--large flex gap-1"
+                  onClick={() =>
+                    approveDelegation({ chainID: SupportedChainId.MUMBAI })
+                  }
+                >
+                  Delegate
+                </button>
+              </div>
+            )
+          ) : sepoliaAmount != '' &&
+            delegateSepolia &&
+            delegateSepolia?.big < BigInt(10 ** 10) ? (
+            chain?.id !== SupportedChainId.SEPOLIA ? (
+              <div className="w-full flex justify-end">
+                <button
+                  className="btn btn--large flex gap-1"
+                  onClick={() => {
+                    switchNetwork?.(SupportedChainId.SEPOLIA);
+                  }}
+                >
+                  Switch Network & Delegate
+                </button>
+              </div>
+            ) : (
+              <div className="w-full flex justify-end">
+                <button
+                  className="btn btn--large flex gap-1"
+                  onClick={() =>
+                    approveDelegation({ chainID: SupportedChainId.SEPOLIA })
+                  }
+                >
+                  Delegate
+                </button>
+              </div>
+            )
+          ) : chain?.id === selectedChain ? (
             <div className="w-full flex justify-end">
               <button
                 className="btn btn--large flex gap-1"
-                onClick={() => {
-                  switchNetwork?.(SupportedChainId.MUMBAI);
-                }}
+                onClick={() => requestBorrow(selectedChain)}
               >
-                Switch Network & Delegate
+                Borrow
+                <img
+                  className="w-6 ml-2 mt-0.5"
+                  src="https://app.aave.com/icons/tokens/gho.svg"
+                  alt=""
+                />
+                GHO
               </button>
             </div>
           ) : (
             <div className="w-full flex justify-end">
               <button
                 className="btn btn--large flex gap-1"
-                onClick={() =>
-                  approveDelegation({ chainID: SupportedChainId.MUMBAI })
-                }
+                onClick={() => {
+                  switchNetwork?.(selectedChain);
+                }}
               >
-                Delegate
+                Switch Network
               </button>
             </div>
-          )
-        ) : (
-          <div className="w-full flex justify-end">
-            <button className="btn btn--large flex gap-1">
-              Borrow
-              <img
-                className="w-6 ml-2 mt-0.5"
-                src="https://app.aave.com/icons/tokens/gho.svg"
-                alt=""
-              />
-              GHO
-            </button>
-          </div>
-        )}
+          ))}
       </section>
     </div>
   );
