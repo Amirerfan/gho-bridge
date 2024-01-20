@@ -1,26 +1,35 @@
 import {
   createContext,
   ReactNode,
+  useCallback,
   useContext,
   useEffect,
   useState,
 } from 'react';
 import {
+  aaveVariableDebtMumbaiABI,
+  aaveVariableDebtSepoliaABI,
   useAaveVariableDebtMumbaiBorrowAllowance,
   useAaveVariableDebtSepoliaBorrowAllowance,
 } from '../abis/types/generated';
-import { GHO_BOX_ADDRESS } from '../constants/addresses';
+import {
+  AAVE_VARIABLE_DEBT_ADDRESS,
+  GHO_BOX_ADDRESS,
+} from '../constants/addresses';
 import { SupportedChainId } from '../constants/chains';
 import { useAccount } from 'wagmi';
 import { W3bNumber } from '../types/web3';
-import { w3bNumberFromBigint } from '../utils/web3';
+import { w3bNumberFromBigint, w3bNumberFromNumber } from '../utils/web3';
+import useWagmiContractWrite from '../hooks/useWagmiContractWrite';
 
 const AaveVariableDebtContext = createContext<{
   delegateSepolia: null | W3bNumber;
   delegateMumbai: null | W3bNumber;
+  approveDelegation: ({ chainID }: { chainID: SupportedChainId }) => void;
 }>({
   delegateSepolia: null,
   delegateMumbai: null,
+  approveDelegation: () => {},
 });
 
 const AaveVariableDebtProvider = ({ children }: { children: ReactNode }) => {
@@ -64,11 +73,50 @@ const AaveVariableDebtProvider = ({ children }: { children: ReactNode }) => {
     } else console.log('no delegate data');
   }, [delegateMumbaiData]);
 
+  const { callback: sepoliaDelegateCallback } = useWagmiContractWrite({
+    abi: aaveVariableDebtSepoliaABI,
+    address: AAVE_VARIABLE_DEBT_ADDRESS[SupportedChainId.SEPOLIA],
+    args: [
+      GHO_BOX_ADDRESS[SupportedChainId.SEPOLIA],
+      w3bNumberFromBigint(BigInt(10 ** 18)).big,
+    ],
+    chainId: SupportedChainId.SEPOLIA,
+    functionName: 'approveDelegation',
+  });
+
+  const { callback: mumbaiDelegateCallback } = useWagmiContractWrite({
+    abi: aaveVariableDebtMumbaiABI,
+    address: AAVE_VARIABLE_DEBT_ADDRESS[SupportedChainId.MUMBAI],
+    args: [
+      GHO_BOX_ADDRESS[SupportedChainId.MUMBAI],
+      w3bNumberFromBigint(BigInt(10 ** 18)).big,
+    ],
+    chainId: SupportedChainId.MUMBAI,
+    functionName: 'approveDelegation',
+  });
+
+  const approveDelegation = useCallback(
+    async ({ chainID }: { chainID: SupportedChainId }) => {
+      if (!walletAddress) return;
+      try {
+        if (chainID === SupportedChainId.SEPOLIA) {
+          await sepoliaDelegateCallback?.();
+        } else if (chainID === SupportedChainId.MUMBAI) {
+          await mumbaiDelegateCallback?.();
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    [walletAddress],
+  );
+
   return (
     <AaveVariableDebtContext.Provider
       value={{
         delegateSepolia,
         delegateMumbai,
+        approveDelegation,
       }}
     >
       {children}

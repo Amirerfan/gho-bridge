@@ -2,11 +2,15 @@ import { FadeIn } from '../../animations';
 import { w3bNumberFromBigint } from '../../utils/web3';
 import ChainListItem from './ChainListItem';
 import { useAaveVariableDebtContext } from '../../contexts/AaveVariableDebtContext';
+import { SupportedChainId } from '../../constants/chains';
+import { useNetwork, useSwitchNetwork } from 'wagmi';
 
 const Dropdown = () => {
-  const { delegateSepolia, delegateMumbai } = useAaveVariableDebtContext();
-
-  console.log(delegateSepolia, delegateMumbai);
+  const { delegateSepolia, delegateMumbai, approveDelegation } =
+    useAaveVariableDebtContext();
+  // active chain
+  const { chain } = useNetwork();
+  const { switchNetwork } = useSwitchNetwork();
 
   return (
     <FadeIn
@@ -17,12 +21,44 @@ const Dropdown = () => {
       <ChainListItem
         icon="https://imagedelivery.net/XQ6LDks1pWNDtTDAw7o9nA/70fb0697-72bf-4232-ed91-1c088911c800/public"
         title="Ethereum Sepolia"
-        delegateAmount={delegateSepolia}
+        buttonCallback={() =>
+          delegateSepolia && delegateSepolia?.big > BigInt(10 ** 10)
+            ? () => {}
+            : chain?.id === SupportedChainId.SEPOLIA
+            ? approveDelegation({ chainID: SupportedChainId.SEPOLIA })
+            : switchNetwork?.(SupportedChainId.SEPOLIA)
+        }
+        buttonTitle={
+          delegateSepolia && delegateSepolia?.big > BigInt(10 ** 10)
+            ? 'Delegated'
+            : chain?.id === SupportedChainId.SEPOLIA
+            ? 'Delegate'
+            : 'Switch Network'
+        }
+        isDisabled={
+          !!(delegateSepolia && delegateSepolia?.big > BigInt(10 ** 10))
+        }
       />
       <ChainListItem
         icon="https://imagedelivery.net/XQ6LDks1pWNDtTDAw7o9nA/1f9a04e7-bf43-476d-4705-506297e2de00/public"
         title="Polygon Mumbai"
-        delegateAmount={delegateMumbai}
+        buttonCallback={() =>
+          delegateMumbai && delegateMumbai?.big > BigInt(10 ** 10)
+            ? () => {}
+            : chain?.id === SupportedChainId.MUMBAI
+            ? approveDelegation({ chainID: SupportedChainId.MUMBAI })
+            : switchNetwork?.(SupportedChainId.MUMBAI)
+        }
+        buttonTitle={
+          delegateMumbai && delegateMumbai?.big > BigInt(10 ** 10)
+            ? 'Delegated'
+            : chain?.id === SupportedChainId.MUMBAI
+            ? 'Delegate'
+            : 'Switch Network'
+        }
+        isDisabled={
+          !!(delegateMumbai && delegateMumbai?.big > BigInt(10 ** 10))
+        }
       />
     </FadeIn>
   );
