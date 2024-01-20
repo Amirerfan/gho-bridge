@@ -7,6 +7,7 @@ import { SupportedChainId } from './src/constants/chains';
 import {
   AAVE_UI_POOL_DATA_PROVIDER_ADDRESS,
   AAVE_VARIABLE_DEBT_ADDRESS,
+  GHO_BOX_ADDRESS,
   POOL_ADDRESS,
 } from './src/constants/addresses';
 import aaveUiPoolDataProviderV3SepoliaABI from './src/abis/Sepolia/AaveUiPoolDataProviderV3';
@@ -15,6 +16,8 @@ import poolSepoliaABI from './src/abis/Sepolia/Pool';
 import poolMumbaiABI from './src/abis/Mumbai/Pool';
 import aaveVariableDebtSepoliaABI from './src/abis/Sepolia/AaveVariableDebt';
 import aaveVariableDebtMumbaiABI from './src/abis/Mumbai/AaveVariableDebt';
+import ghoBoxSepoliaABI from './src/abis/Sepolia/GhoBox';
+import ghoBoxMumbaiABI from './src/abis/Mumbai/GhoBox';
 
 export default defineConfig({
   out: 'src/abis/types/generated.ts',
@@ -63,6 +66,16 @@ export default defineConfig({
       name: 'aaveVariableDebtMumbai',
       address: AAVE_VARIABLE_DEBT_ADDRESS[SupportedChainId.MUMBAI],
       abi: aaveVariableDebtMumbaiABI,
+    },
+    {
+      name: 'ghoBoxSepolia',
+      address: GHO_BOX_ADDRESS[SupportedChainId.SEPOLIA],
+      abi: ghoBoxSepoliaABI,
+    },
+    {
+      name: 'ghoBoxMumbai',
+      address: GHO_BOX_ADDRESS[SupportedChainId.MUMBAI],
+      abi: ghoBoxMumbaiABI,
     },
   ],
   plugins: [react()],
