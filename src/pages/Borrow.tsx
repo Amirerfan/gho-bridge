@@ -4,9 +4,16 @@ import { usePoolContext } from '../contexts/PoolContext';
 import { w3bNumberFromBigint } from '../utils/web3';
 import { useState } from 'react';
 import { SupportedChainId } from '../constants/chains';
+import { useAaveVariableDebtContext } from '../contexts/AaveVariableDebtContext';
+import { useNetwork, useSwitchNetwork } from 'wagmi';
 
 const Borrow = () => {
   const { poolDataSepolia, poolDataMumbai } = usePoolContext();
+  const { chain } = useNetwork();
+  const { switchNetwork } = useSwitchNetwork();
+
+  const { delegateSepolia, delegateMumbai, approveDelegation } =
+    useAaveVariableDebtContext();
 
   const [sepoliaAmount, setSepoliaAmount] = useState<string>('');
   const [mumbaiAmount, setMumbaiAmount] = useState<string>('');
@@ -67,17 +74,71 @@ const Borrow = () => {
           />
         </div>
 
-        <div className="w-full flex justify-end">
-          <button className="btn btn--large flex gap-1">
-            Borrow
-            <img
-              className="w-6 ml-2 mt-0.5"
-              src="https://app.aave.com/icons/tokens/gho.svg"
-              alt=""
-            />
-            GHO
-          </button>
-        </div>
+        {sepoliaAmount !== '' &&
+        delegateSepolia &&
+        delegateSepolia?.big < BigInt(10 ** 10) ? (
+          chain?.id !== SupportedChainId.SEPOLIA ? (
+            <div className="w-full flex justify-end">
+              <button
+                className="btn btn--large flex gap-1"
+                onClick={() => {
+                  switchNetwork?.(SupportedChainId.SEPOLIA);
+                }}
+              >
+                Switch Network & Delegate
+              </button>
+            </div>
+          ) : (
+            <div className="w-full flex justify-end">
+              <button
+                className="btn btn--large flex gap-1"
+                onClick={() =>
+                  approveDelegation({ chainID: SupportedChainId.SEPOLIA })
+                }
+              >
+                Delegate
+              </button>
+            </div>
+          )
+        ) : mumbaiAmount != '' &&
+          delegateMumbai &&
+          delegateMumbai?.big < BigInt(10 ** 10) ? (
+          chain?.id !== SupportedChainId.MUMBAI ? (
+            <div className="w-full flex justify-end">
+              <button
+                className="btn btn--large flex gap-1"
+                onClick={() => {
+                  switchNetwork?.(SupportedChainId.MUMBAI);
+                }}
+              >
+                Switch Network & Delegate
+              </button>
+            </div>
+          ) : (
+            <div className="w-full flex justify-end">
+              <button
+                className="btn btn--large flex gap-1"
+                onClick={() =>
+                  approveDelegation({ chainID: SupportedChainId.MUMBAI })
+                }
+              >
+                Delegate
+              </button>
+            </div>
+          )
+        ) : (
+          <div className="w-full flex justify-end">
+            <button className="btn btn--large flex gap-1">
+              Borrow
+              <img
+                className="w-6 ml-2 mt-0.5"
+                src="https://app.aave.com/icons/tokens/gho.svg"
+                alt=""
+              />
+              GHO
+            </button>
+          </div>
+        )}
       </section>
     </div>
   );

@@ -8,7 +8,7 @@ import { useNetwork, useSwitchNetwork } from 'wagmi';
 const Dropdown = () => {
   const { delegateSepolia, delegateMumbai, approveDelegation } =
     useAaveVariableDebtContext();
-  // active chain
+
   const { chain } = useNetwork();
   const { switchNetwork } = useSwitchNetwork();
 
