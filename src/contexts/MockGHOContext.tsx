@@ -38,7 +38,7 @@ const MockGHOProvider = ({ children }: { children: ReactNode }) => {
   });
 
   useEffect(() => {
-    if (mockGHOSepoliaBalanceData) {
+    if (mockGHOSepoliaBalanceData !== undefined) {
       setMockGHOSepoliaBalance(w3bNumberFromBigint(mockGHOSepoliaBalanceData));
     } else console.log('no data for mockGHOSepoliaBalanceData');
   }, [mockGHOSepoliaBalanceData]);
@@ -51,7 +51,7 @@ const MockGHOProvider = ({ children }: { children: ReactNode }) => {
   });
 
   useEffect(() => {
-    if (mockGHOMumbaiBalanceData) {
+    if (mockGHOMumbaiBalanceData !== undefined) {
       setMockGHOMumbaiBalance(w3bNumberFromBigint(mockGHOMumbaiBalanceData));
     } else console.log('no data for mockGHOMumbaiBalanceData');
   }, [mockGHOMumbaiBalanceData]);
