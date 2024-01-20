@@ -1,8 +1,13 @@
 import { FadeIn } from '../../animations';
 import { w3bNumberFromBigint } from '../../utils/web3';
 import ChainListItem from './ChainListItem';
+import { useAaveVariableDebtContext } from '../../contexts/AaveVariableDebtContext';
 
 const Dropdown = () => {
+  const { delegateSepolia, delegateMumbai } = useAaveVariableDebtContext();
+
+  console.log(delegateSepolia, delegateMumbai);
+
   return (
     <FadeIn
       duration={0.1}
@@ -12,12 +17,12 @@ const Dropdown = () => {
       <ChainListItem
         icon="https://imagedelivery.net/XQ6LDks1pWNDtTDAw7o9nA/70fb0697-72bf-4232-ed91-1c088911c800/public"
         title="Ethereum Sepolia"
-        delegateAmount={w3bNumberFromBigint(BigInt(0))}
+        delegateAmount={delegateSepolia}
       />
       <ChainListItem
         icon="https://imagedelivery.net/XQ6LDks1pWNDtTDAw7o9nA/1f9a04e7-bf43-476d-4705-506297e2de00/public"
         title="Polygon Mumbai"
-        delegateAmount={w3bNumberFromBigint(BigInt(10 ** 40))}
+        delegateAmount={delegateMumbai}
       />
     </FadeIn>
   );
