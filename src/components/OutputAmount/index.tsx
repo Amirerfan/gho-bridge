@@ -1,6 +1,14 @@
 import { SupportedChainId } from '../../constants/chains';
 
-const OutputAmount = ({}) => {
+const OutputAmount = ({
+  value,
+  selectedChain,
+  setSelectedChain,
+}: {
+  value: string;
+  selectedChain: SupportedChainId;
+  setSelectedChain: (chain: SupportedChainId) => void;
+}) => {
   return (
     <div className="relative rounded-xl bg-gradient-to-r from-primary-light to-gray-800 p-5 flex w-full items-center">
       <div className="input-left w-full flex flex-col gap-1">
@@ -14,13 +22,11 @@ const OutputAmount = ({}) => {
         </div>
         <div className="w-full flex justify-between items-center">
           <input
-            type="number"
             id="amount"
-            value={'fromInput'}
+            value={value}
             disabled
-            onChange={(e) => {}}
-            className="text-3xl bg-transparent text-white pl-0 w-[50%]"
-            placeholder="0.0"
+            className="text-3xl bg-transparent text-white pl-0"
+            placeholder="$0.00"
           />
           <div className="flex flex-col gap-2 rounded-xl py-0.5 justify-start items-end">
             <select
@@ -30,7 +36,8 @@ const OutputAmount = ({}) => {
               <option
                 className="flex gap-1 font-semibold"
                 value={SupportedChainId.SEPOLIA}
-                selected
+                selected={selectedChain === SupportedChainId.SEPOLIA}
+                onClick={() => setSelectedChain(SupportedChainId.SEPOLIA)}
               >
                 <img
                   src="https://imagedelivery.net/XQ6LDks1pWNDtTDAw7o9nA/70fb0697-72bf-4232-ed91-1c088911c800/public"
@@ -42,6 +49,8 @@ const OutputAmount = ({}) => {
               <option
                 className="flex gap-1 font-semibold"
                 value={SupportedChainId.MUMBAI}
+                selected={selectedChain === SupportedChainId.MUMBAI}
+                onClick={() => setSelectedChain(SupportedChainId.MUMBAI)}
               >
                 <img
                   src="https://imagedelivery.net/XQ6LDks1pWNDtTDAw7o9nA/1f9a04e7-bf43-476d-4705-506297e2de00/public"

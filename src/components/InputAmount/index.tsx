@@ -4,10 +4,14 @@ const InputAmount = ({
   max,
   title,
   icon,
+  value,
+  setValue,
 }: {
   max: W3bNumber;
   title: string;
   icon: string;
+  value: string;
+  setValue: (value: string) => void;
 }) => {
   return (
     <div className="relative rounded-xl bg-gradient-to-r from-primary-light to-gray-800 p-5 flex w-full items-center">
@@ -28,7 +32,7 @@ const InputAmount = ({
                 </p>
                 <p
                   className="cursor-pointer text-sm hover:text-white text-gray-300 pr-1 font-semibold transition-all"
-                  // onClick={() => setFromInput(max?.hStr)}
+                  onClick={() => setValue(max?.hStr)}
                 >
                   MAX
                 </p>
@@ -39,8 +43,8 @@ const InputAmount = ({
         <input
           type="number"
           id="amount"
-          value={'fromInput'}
-          onChange={(e) => {}}
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
           className="text-3xl bg-transparent text-white pl-0"
           placeholder="0.0"
         />
