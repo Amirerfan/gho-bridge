@@ -241,6 +241,9 @@ const Borrow = () => {
             </div>
           ))}
       </section>
+      <section>
+        <p className="hash"></p>
+      </section>
     </div>
   );
 };

@@ -3,7 +3,7 @@ import { ghoBoxSepoliaABI } from '../abis/types/generated';
 import { GHO_BOX_ADDRESS } from '../constants/addresses';
 import { SupportedChainId } from '../constants/chains';
 import { W3bNumber } from '../types/web3';
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 
 const useGHOBoxContract = ({
   sepoliaAmount,
@@ -12,6 +12,8 @@ const useGHOBoxContract = ({
   sepoliaAmount: W3bNumber;
   mumbaiAmount: W3bNumber;
 }) => {
+  const [thash, setThash] = useState<string | null>(null);
+
   const { callback: requestBorrowOnSepolia } = useWagmiContractWrite({
     abi: ghoBoxSepoliaABI,
     address: GHO_BOX_ADDRESS[SupportedChainId.SEPOLIA],
@@ -24,7 +26,7 @@ const useGHOBoxContract = ({
     abi: ghoBoxSepoliaABI,
     address: GHO_BOX_ADDRESS[SupportedChainId.MUMBAI],
     functionName: 'requestBorrow',
-    args: [sepoliaAmount.big, mumbaiAmount.big],
+    args: [mumbaiAmount.big, sepoliaAmount.big],
     chainId: SupportedChainId.MUMBAI,
   });
 
