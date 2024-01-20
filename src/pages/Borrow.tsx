@@ -22,7 +22,7 @@ const Borrow = () => {
     SupportedChainId.SEPOLIA,
   );
 
-  const { requestBorrow } = useGHOBoxContract({
+  const { requestBorrow, thash, ccip } = useGHOBoxContract({
     mumbaiAmount: w3bNumberFromString(mumbaiAmount),
     sepoliaAmount: w3bNumberFromString(sepoliaAmount),
   });
@@ -241,9 +241,22 @@ const Borrow = () => {
             </div>
           ))}
       </section>
-      <section>
-        <p className="hash"></p>
-      </section>
+      {thash && (
+        <section className="mt-3">
+          <p
+            className="hash text-white font-semibold hover:underline cursor-pointer"
+            onClick={() => window.open(thash!, '_blank')}
+          >
+            Transaction hash: {thash}
+          </p>
+          <p
+            className="hash text-white font-semibold hover:underline cursor-pointer"
+            onClick={() => window.open(ccip!, '_blank')}
+          >
+            ccip link: {ccip}
+          </p>
+        </section>
+      )}
     </div>
   );
 };
