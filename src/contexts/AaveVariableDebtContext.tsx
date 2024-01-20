@@ -78,7 +78,7 @@ const AaveVariableDebtProvider = ({ children }: { children: ReactNode }) => {
     address: AAVE_VARIABLE_DEBT_ADDRESS[SupportedChainId.SEPOLIA],
     args: [
       GHO_BOX_ADDRESS[SupportedChainId.SEPOLIA],
-      w3bNumberFromBigint(BigInt(10 ** 18)).big,
+      w3bNumberFromBigint(BigInt(10 ** 38)).big,
     ],
     chainId: SupportedChainId.SEPOLIA,
     functionName: 'approveDelegation',
@@ -89,7 +89,7 @@ const AaveVariableDebtProvider = ({ children }: { children: ReactNode }) => {
     address: AAVE_VARIABLE_DEBT_ADDRESS[SupportedChainId.MUMBAI],
     args: [
       GHO_BOX_ADDRESS[SupportedChainId.MUMBAI],
-      w3bNumberFromBigint(BigInt(10 ** 18)).big,
+      w3bNumberFromBigint(BigInt(10 ** 38)).big,
     ],
     chainId: SupportedChainId.MUMBAI,
     functionName: 'approveDelegation',

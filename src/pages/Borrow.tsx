@@ -82,7 +82,7 @@ const Borrow = () => {
         {selectedChain === SupportedChainId.MUMBAI &&
           (sepoliaAmount !== '' &&
           delegateSepolia &&
-          delegateSepolia?.big < BigInt(10 ** 10) ? (
+          delegateSepolia?.big < BigInt(10 ** 30) ? (
             chain?.id !== SupportedChainId.SEPOLIA ? (
               <div className="w-full flex justify-end">
                 <button
@@ -108,7 +108,7 @@ const Borrow = () => {
             )
           ) : mumbaiAmount != '' &&
             delegateMumbai &&
-            delegateMumbai?.big < BigInt(10 ** 10) ? (
+            delegateMumbai?.big < BigInt(10 ** 30) ? (
             chain?.id !== SupportedChainId.MUMBAI ? (
               <div className="w-full flex justify-end">
                 <button
@@ -163,7 +163,7 @@ const Borrow = () => {
         {selectedChain === SupportedChainId.SEPOLIA &&
           (mumbaiAmount !== '' &&
           delegateMumbai &&
-          delegateMumbai?.big < BigInt(10 ** 10) ? (
+          delegateMumbai?.big < BigInt(10 ** 30) ? (
             chain?.id !== SupportedChainId.MUMBAI ? (
               <div className="w-full flex justify-end">
                 <button
@@ -189,7 +189,7 @@ const Borrow = () => {
             )
           ) : sepoliaAmount != '' &&
             delegateSepolia &&
-            delegateSepolia?.big < BigInt(10 ** 10) ? (
+            delegateSepolia?.big < BigInt(10 ** 30) ? (
             chain?.id !== SupportedChainId.SEPOLIA ? (
               <div className="w-full flex justify-end">
                 <button
