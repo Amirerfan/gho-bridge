@@ -21,7 +21,7 @@ const ChainListItem = ({
       </div>
       <button
         className={`btn btn--small btn--secondary ${
-          isDisabled ? 'btn--disabled' : ''
+          isDisabled ? 'btn--disabled !from-green-600 !to-green-700' : ''
         } !min-w-24 text-white`}
         onClick={buttonCallback}
       >
