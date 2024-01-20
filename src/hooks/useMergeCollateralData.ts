@@ -8,10 +8,12 @@ const useMergeCollateralData = ({
   supportedCoins,
   aaveUiPoolDataProviderSepolia,
   aaveUiPoolDataProviderMumbai,
+  usdPrices,
 }: {
   supportedCoins: SupportedCoin[];
   aaveUiPoolDataProviderSepolia: any;
   aaveUiPoolDataProviderMumbai: any;
+  usdPrices: any;
 }) => {
   const [tableData, setTableData] = useState<TableData[]>([]);
 
@@ -65,13 +67,17 @@ const useMergeCollateralData = ({
 
   useEffect(() => {
     const tbldt: TableData[] = [];
-
+    console.log('usdPrices ddd', usdPrices);
     supportedCoins.forEach((coin) => {
       const coinData: TableData = {
         id: coin.id,
         symbol: coin.symbol,
         icon: coin.icon,
         chainlinkPriceFeedAddress: coin.chainlinkPriceFeedAddress,
+        usdPrice:
+          usdPrices && usdPrices[coin.coinGeckoId]
+            ? usdPrices[coin.coinGeckoId].usd
+            : null,
         chainData: coin.chainAddress.map((chain) => {
           return {
             chainId: chain.chainId,
@@ -82,20 +88,18 @@ const useMergeCollateralData = ({
               aaveUiPoolDataProviderSepolia,
               aaveUiPoolDataProviderMumbai,
             ),
-            usdPrice: null,
           };
         }),
       };
       tbldt.push(coinData);
     });
 
-    console.log(tbldt);
-
     setTableData(tbldt);
   }, [
     supportedCoins,
     aaveUiPoolDataProviderSepolia,
     aaveUiPoolDataProviderMumbai,
+    usdPrices,
   ]);
 
   return {

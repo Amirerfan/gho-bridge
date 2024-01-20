@@ -8,8 +8,8 @@ import { TableData } from '../types/tableData';
 import { Link } from 'react-router-dom';
 
 const UnifiedLiquidity = () => {
-  const [selectedOption, setSelectedOption] = useState('ALL');
-  const { supportedCoins } = useCollateralCoinsContext();
+  // const [selectedOption, setSelectedOption] = useState('ALL');
+  const { supportedCoins, usdPrices } = useCollateralCoinsContext();
   const { aaveUiPoolDataProviderSepolia, aaveUiPoolDataProviderMumbai } =
     useAaveUiPoolDataProviderV3Context();
 
@@ -17,6 +17,7 @@ const UnifiedLiquidity = () => {
     supportedCoins,
     aaveUiPoolDataProviderSepolia,
     aaveUiPoolDataProviderMumbai,
+    usdPrices,
   });
 
   return (

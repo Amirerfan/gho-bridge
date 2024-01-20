@@ -6,6 +6,7 @@ export const SupportedCoins: SupportedCoin[] = [
     id: 1,
     icon: 'https://app.aave.com/icons/tokens/dai.svg',
     symbol: 'DAI',
+    coinGeckoId: 'aave-dai',
     chainAddress: [
       {
         chainId: SupportedChainId.SEPOLIA,
@@ -22,6 +23,7 @@ export const SupportedCoins: SupportedCoin[] = [
     id: 2,
     icon: 'https://app.aave.com/icons/tokens/link.svg',
     symbol: 'LINK',
+    coinGeckoId: 'aave-link',
     chainAddress: [
       {
         chainId: SupportedChainId.SEPOLIA,
@@ -38,6 +40,7 @@ export const SupportedCoins: SupportedCoin[] = [
     id: 3,
     icon: 'https://app.aave.com/icons/tokens/usdc.svg',
     symbol: 'USDC',
+    coinGeckoId: 'aave-usdc',
     chainAddress: [
       {
         chainId: SupportedChainId.SEPOLIA,
@@ -54,6 +57,7 @@ export const SupportedCoins: SupportedCoin[] = [
     id: 4,
     icon: 'https://app.aave.com/icons/tokens/wbtc.svg',
     symbol: 'WBTC',
+    coinGeckoId: 'aave-wbtc',
     chainAddress: [
       {
         chainId: SupportedChainId.SEPOLIA,
@@ -70,6 +74,7 @@ export const SupportedCoins: SupportedCoin[] = [
     id: 5,
     icon: 'https://app.aave.com/icons/tokens/weth.svg',
     symbol: 'WETH',
+    coinGeckoId: 'aave-weth',
     chainAddress: [
       {
         chainId: SupportedChainId.SEPOLIA,
@@ -86,6 +91,7 @@ export const SupportedCoins: SupportedCoin[] = [
     id: 6,
     icon: 'https://app.aave.com/icons/tokens/usdt.svg',
     symbol: 'USDT',
+    coinGeckoId: 'aave-usdt',
     chainAddress: [
       {
         chainId: SupportedChainId.SEPOLIA,
@@ -102,6 +108,7 @@ export const SupportedCoins: SupportedCoin[] = [
     id: 7,
     icon: 'https://app.aave.com/icons/tokens/aave.svg',
     symbol: 'AAVE',
+    coinGeckoId: 'aave',
     chainAddress: [
       {
         chainId: SupportedChainId.SEPOLIA,
@@ -118,6 +125,7 @@ export const SupportedCoins: SupportedCoin[] = [
     id: 8,
     icon: 'https://app.aave.com/icons/tokens/gho.svg',
     symbol: 'GHO',
+    coinGeckoId: 'gho',
     chainAddress: [
       {
         chainId: SupportedChainId.SEPOLIA,
@@ -130,6 +138,7 @@ export const SupportedCoins: SupportedCoin[] = [
     id: 9,
     icon: 'https://app.aave.com/icons/tokens/wmatic.svg',
     symbol: 'WMATIC',
+    coinGeckoId: 'wmatic',
     chainAddress: [
       {
         chainId: SupportedChainId.MUMBAI,
@@ -142,6 +151,7 @@ export const SupportedCoins: SupportedCoin[] = [
     id: 10,
     icon: 'https://app.aave.com/icons/tokens/crv.svg',
     symbol: 'CRV',
+    coinGeckoId: 'aave-crv',
     chainAddress: [
       {
         chainId: SupportedChainId.MUMBAI,

@@ -10,7 +10,7 @@ export type TableData = {
     address: string;
     collateral: W3bNumber | null;
     canBeCollateral: boolean | null;
-    usdPrice: W3bNumber | null;
   }[];
+  usdPrice: string | null;
   chainlinkPriceFeedAddress: string;
 };
