@@ -8,6 +8,7 @@ import { CollateralCoinsProvider } from './contexts/CollateralCoinsContext';
 import { AaveUiPoolDataProviderV3Provider } from './contexts/AaveUiPoolDataProviderV3Context';
 import { PoolProvider } from './contexts/PoolContext';
 import { AaveVariableDebtProvider } from './contexts/AaveVariableDebtContext';
+import { MockGHOProvider } from './contexts/MockGHOContext';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
@@ -15,17 +16,19 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Web3Provider>
-      <CollateralCoinsProvider>
-        <AaveVariableDebtProvider>
-          <AaveUiPoolDataProviderV3Provider>
-            <PoolProvider>
-              <GHOProvider>
-                <App />
-              </GHOProvider>
-            </PoolProvider>
-          </AaveUiPoolDataProviderV3Provider>
-        </AaveVariableDebtProvider>
-      </CollateralCoinsProvider>
+      <MockGHOProvider>
+        <CollateralCoinsProvider>
+          <AaveVariableDebtProvider>
+            <AaveUiPoolDataProviderV3Provider>
+              <PoolProvider>
+                <GHOProvider>
+                  <App />
+                </GHOProvider>
+              </PoolProvider>
+            </AaveUiPoolDataProviderV3Provider>
+          </AaveVariableDebtProvider>
+        </CollateralCoinsProvider>
+      </MockGHOProvider>
     </Web3Provider>
   </React.StrictMode>,
 );
