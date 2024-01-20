@@ -7,7 +7,10 @@ export const Navbar = () => {
 
   return (
     <nav className="h-16 w-full bg-transparent flex items-center justify-between px-6">
-      <ChainsDropdown />
+      <div className="ml-9 flex items-center">
+        <img src="/assets/images/logo.png" className="w-20" alt="" />
+        <ChainsDropdown />
+      </div>
       <div className="flex gap-2 items-center">
         {mockGHOSepoliaBalance && (
           <div className="flex gap-1 items-center bg-gradient-to-r from-primary-light-3 to-primary py-2 px-3 text-white rounded-3xl">
