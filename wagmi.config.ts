@@ -6,12 +6,15 @@ import { react } from '@wagmi/cli/plugins';
 import { SupportedChainId } from './src/constants/chains';
 import {
   AAVE_UI_POOL_DATA_PROVIDER_ADDRESS,
+  AAVE_VARIABLE_DEBT_ADDRESS,
   POOL_ADDRESS,
 } from './src/constants/addresses';
 import aaveUiPoolDataProviderV3SepoliaABI from './src/abis/Sepolia/AaveUiPoolDataProviderV3';
 import aaveUiPoolDataProviderV3MumbaiABI from './src/abis/Mumbai/AaveUiPoolDataProviderV3';
 import poolSepoliaABI from './src/abis/Sepolia/Pool';
 import poolMumbaiABI from './src/abis/Mumbai/Pool';
+import aaveVariableDebtSepoliaABI from './src/abis/Sepolia/AaveVariableDebt';
+import aaveVariableDebtMumbaiABI from './src/abis/Mumbai/AaveVariableDebt';
 
 export default defineConfig({
   out: 'src/abis/types/generated.ts',
@@ -50,6 +53,16 @@ export default defineConfig({
       name: 'poolMumbai',
       address: POOL_ADDRESS[SupportedChainId.MUMBAI],
       abi: poolMumbaiABI,
+    },
+    {
+      name: 'aaveVariableDebtSepolia',
+      address: AAVE_VARIABLE_DEBT_ADDRESS[SupportedChainId.SEPOLIA],
+      abi: aaveVariableDebtSepoliaABI,
+    },
+    {
+      name: 'aaveVariableDebtMumbai',
+      address: AAVE_VARIABLE_DEBT_ADDRESS[SupportedChainId.MUMBAI],
+      abi: aaveVariableDebtMumbaiABI,
     },
   ],
   plugins: [react()],
