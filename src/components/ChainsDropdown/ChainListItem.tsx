@@ -1,5 +1,3 @@
-import { W3bNumber } from '../../types/web3';
-
 const ChainListItem = ({
   title,
   icon,
