@@ -1,46 +1,51 @@
-# Getting Started with Create React App
+# GhoBox: Liquidity Unifier Without Shifting Collateral
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Overview
 
-## Available Scripts
+[GhoBox](https://gho-bridge.vercel.app/) is a revolutionary contract that streamlines liquidity management across multiple blockchains without the need to shift collateral. It enables users to provide liquidity to Aave on any supported chain and delegate borrowing power to GhoBox. This unique system allows GhoBox to efficiently handle loans using the user's liquidity. Utilizing the Cross-Chain Interoperability Protocol (CCIP), GhoBox adeptly coordinates loans across different blockchains, encompassing all necessary steps – borrowing, burning, and minting of GHO tokens. This process significantly simplifies cross-chain asset utilization without the need to move collateral. For detailed insights into the contract mechanics, visit our [contracts repository](hhttps://github.com/zkfriendly/snow).
 
-In the project directory, you can run:
+## How It Works: A Running Example
 
-### `yarn start`
+Imagine Alice, who aims to leverage her assets across Ethereum and Polygon without relocating her collateral. GhoBox facilitates this process in the following steps:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Step 1: Supplying Liquidity to Aave
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- **Alice’s Action**: She provides liquidity to the Aave protocol on both Ethereum and Polygon networks.
 
-### `yarn test`
+### Step 2: Delegating Credit to GhoBox
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- **Alice’s Action**: Alice delegates her GHO borrowing credit to the GhoBox instances operating on Ethereum and Polygon.
 
-### `yarn build`
+### Step 3: Requesting a GHO Loan
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- **Alice’s Action**: Seeking a total of 1000 GHO, Alice opts to borrow 600 GHO against her Ethereum liquidity and 400 GHO against her Polygon liquidity.
+- **Process**: She requests the loan via the Ethereum GhoBox, specifying the desired amounts from each blockchain.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Step 4: Coordinating Loan Across Chains
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- **GhoBox’s Role**: The Ethereum-based GhoBox coordinates with its Polygon counterpart for the execution of Alice's loan.
 
-### `yarn eject`
+### Step 5: Loan Execution on Polygon
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- **GhoBox’s Action**: The Polygon GhoBox secures a 400 GHO loan and immediately proceeds to burn it, as required in the process.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Step 6: Confirmation via CCIP
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- **GhoBox’s Action**: The loan burning on Polygon is confirmed through the Cross-Chain Interoperability Protocol.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### Step 7: Minting and Loan Fulfillment on Ethereum
 
-## Learn More
+- **Final Action**: With the burning confirmed, the Ethereum GhoBox mints the aggregate 1000 GHO (including the 400 GHO from Polygon) for Alice.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Conclusion
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- **Outcome for Alice**: Alice effectively accesses 1000 GHO on the Ethereum network by leveraging her combined liquidity from both Ethereum and Polygon, without the need for asset transfer.
+
+This scenario exemplifies GhoBox's efficiency in facilitating complex cross-chain liquidity management.
+
+## Features
+
+- Effortless aggregation of liquidity across multiple chains without collateral transfer.
+- Simplified credit delegation through GHO tokens.
+- Advanced cross-chain loan management enabled by CCIP.
+- Integration with leading protocols like Chainlink and Aave, ensuring robust and secure operations.
