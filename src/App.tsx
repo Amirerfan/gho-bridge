@@ -4,6 +4,7 @@ import { Home } from './pages/Home';
 import { Navbar } from './components/Navbar';
 import UnifiedLiquidity from './pages/UnifiedLiquidity';
 import Borrow from './pages/Borrow';
+import ConnectWallet from './pages/ConnectWallet';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
             <Route path="/" element={<UnifiedLiquidity />} />
             <Route path="/borrow" element={<Borrow />} />
             <Route path="/bridge" element={<Home />} />
+            <Route path="/connect-wallet" element={<ConnectWallet />} />
           </Routes>
         </div>
       </BrowserRouter>

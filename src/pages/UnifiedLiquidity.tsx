@@ -1,11 +1,12 @@
 import CollateralTable from '../components/CollateralTable';
 import GroupButton from '../components/GroupButton';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useCollateralCoinsContext } from '../contexts/CollateralCoinsContext';
 import { useAaveUiPoolDataProviderV3Context } from '../contexts/AaveUiPoolDataProviderV3Context';
 import useMergeCollateralData from '../hooks/useMergeCollateralData';
 import { TableData } from '../types/tableData';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAccount } from 'wagmi';
 
 const UnifiedLiquidity = () => {
   // const [selectedOption, setSelectedOption] = useState('ALL');
@@ -13,12 +14,21 @@ const UnifiedLiquidity = () => {
   const { aaveUiPoolDataProviderSepolia, aaveUiPoolDataProviderMumbai } =
     useAaveUiPoolDataProviderV3Context();
 
+  const { isConnected } = useAccount();
+  const navigate = useNavigate();
+
   const { tableData } = useMergeCollateralData({
     supportedCoins,
     aaveUiPoolDataProviderSepolia,
     aaveUiPoolDataProviderMumbai,
     usdPrices,
   });
+
+  useEffect(() => {
+    if (!isConnected) {
+      navigate('/connect-wallet');
+    }
+  }, [isConnected]);
 
   return (
     <div className="unified-collateral-page gap-1 flex flex-col">

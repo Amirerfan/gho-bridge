@@ -1,18 +1,20 @@
 import { ConnectButton } from '../ConnectButton';
 import ChainsDropdown from '../ChainsDropdown';
 import { useMockGHOContext } from '../../contexts/MockGHOContext';
+import { useAccount } from 'wagmi';
 
 export const Navbar = () => {
   const { mockGHOSepoliaBalance, mockGHOMumbaiBalance } = useMockGHOContext();
-  console.log(mockGHOSepoliaBalance, mockGHOMumbaiBalance);
+  const { address: walletAddress } = useAccount();
+
   return (
     <nav className="h-16 w-full bg-transparent flex items-center justify-between px-6">
       <div className="ml-9 flex items-center">
         <img src="/assets/images/logo.png" className="w-20" alt="" />
-        <ChainsDropdown />
+        {walletAddress && <ChainsDropdown />}
       </div>
       <div className="flex gap-2 items-center">
-        {mockGHOSepoliaBalance && (
+        {mockGHOSepoliaBalance && walletAddress && (
           <div className="flex gap-1 items-center bg-gradient-to-r from-primary-light-3 to-primary py-2 px-3 text-white rounded-3xl">
             <img
               className="w-4 h-4"
@@ -29,7 +31,7 @@ export const Navbar = () => {
             </p>
           </div>
         )}
-        {mockGHOMumbaiBalance && (
+        {mockGHOMumbaiBalance && walletAddress && (
           <div className="flex gap-1 items-center bg-gradient-to-r from-primary-light-3 to-primary py-2 px-3 text-white rounded-3xl mr-6">
             <img
               className="w-4 h-4"

@@ -2,16 +2,19 @@ import InputAmount from '../components/InputAmount';
 import OutputAmount from '../components/OutputAmount';
 import { usePoolContext } from '../contexts/PoolContext';
 import { w3bNumberFromBigint, w3bNumberFromString } from '../utils/web3';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { SupportedChainId } from '../constants/chains';
 import { useAaveVariableDebtContext } from '../contexts/AaveVariableDebtContext';
-import { useNetwork, useSwitchNetwork } from 'wagmi';
+import { useAccount, useNetwork, useSwitchNetwork } from 'wagmi';
 import useGHOBoxContract from '../hooks/useGHOBoxContract';
+import { useNavigate } from 'react-router-dom';
 
 const Borrow = () => {
   const { poolDataSepolia, poolDataMumbai } = usePoolContext();
   const { chain } = useNetwork();
   const { switchNetwork } = useSwitchNetwork();
+  const { isConnected } = useAccount();
+  const navigate = useNavigate();
 
   const { delegateSepolia, delegateMumbai, approveDelegation } =
     useAaveVariableDebtContext();
@@ -21,6 +24,12 @@ const Borrow = () => {
   const [selectedChain, setSelectedChain] = useState<SupportedChainId>(
     SupportedChainId.SEPOLIA,
   );
+
+  useEffect(() => {
+    if (!isConnected) {
+      navigate('/connect-wallet');
+    }
+  }, [isConnected]);
 
   const { requestBorrow, thash, ccip } = useGHOBoxContract({
     mumbaiAmount: w3bNumberFromString(mumbaiAmount),
