@@ -16,8 +16,13 @@ const Borrow = () => {
   const { isConnected } = useAccount();
   const navigate = useNavigate();
 
-  const { delegateSepolia, delegateMumbai, approveDelegation } =
-    useAaveVariableDebtContext();
+  const {
+    delegateSepolia,
+    delegateMumbai,
+    approveDelegation,
+    isTransactionLoading: delegateTxLoading,
+    isMetamaskLoading: delegateMetamaskLoading,
+  } = useAaveVariableDebtContext();
 
   const [sepoliaAmount, setSepoliaAmount] = useState<string>('');
   const [mumbaiAmount, setMumbaiAmount] = useState<string>('');
@@ -31,7 +36,13 @@ const Borrow = () => {
     }
   }, [isConnected]);
 
-  const { requestBorrow, thash, ccip } = useGHOBoxContract({
+  const {
+    requestBorrow,
+    thash,
+    ccip,
+    isMetamaskLoading,
+    isTransactionLoading,
+  } = useGHOBoxContract({
     mumbaiAmount: w3bNumberFromString(mumbaiAmount),
     sepoliaAmount: w3bNumberFromString(sepoliaAmount),
   });
@@ -88,7 +99,28 @@ const Borrow = () => {
             }
           />
         </div>
-        {selectedChain === SupportedChainId.MUMBAI &&
+
+        {isTransactionLoading ||
+        isMetamaskLoading ||
+        delegateTxLoading ||
+        delegateMetamaskLoading ? (
+          <div className="w-full flex justify-end">
+            <button className="btn btn--large btn--disabled flex gap-1">
+              <div className="loader loader--medium"></div>
+              <p className="text-white font-semibold">Loading</p>
+            </button>
+          </div>
+        ) : (
+          ''
+        )}
+
+        {!(
+          isTransactionLoading ||
+          isMetamaskLoading ||
+          delegateTxLoading ||
+          delegateMetamaskLoading
+        ) &&
+          selectedChain === SupportedChainId.MUMBAI &&
           (sepoliaAmount !== '' &&
           delegateSepolia &&
           delegateSepolia?.big < BigInt(10 ** 30) ? (
@@ -169,7 +201,13 @@ const Borrow = () => {
             </div>
           ))}
 
-        {selectedChain === SupportedChainId.SEPOLIA &&
+        {!(
+          isTransactionLoading ||
+          isMetamaskLoading ||
+          delegateTxLoading ||
+          delegateMetamaskLoading
+        ) &&
+          selectedChain === SupportedChainId.SEPOLIA &&
           (mumbaiAmount !== '' &&
           delegateMumbai &&
           delegateMumbai?.big < BigInt(10 ** 30) ? (

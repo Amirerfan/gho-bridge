@@ -15,30 +15,48 @@ const useGHOBoxContract = ({
   const [thash, setThash] = useState<string | null>(null);
   const [ccip, setCcip] = useState<string | null>(null);
 
-  const { callback: requestBorrowOnSepolia, transactionHash: sepoliaTX } =
-    useWagmiContractWrite({
-      abi: ghoBoxSepoliaABI,
-      address: GHO_BOX_ADDRESS[SupportedChainId.SEPOLIA],
-      functionName: 'requestBorrow',
-      args: [sepoliaAmount.big, mumbaiAmount.big],
-      chainId: SupportedChainId.SEPOLIA,
-    });
+  const {
+    callback: requestBorrowOnSepolia,
+    isMetamaskLoading: sepoliaMetamaskLoading,
+    isTransactionLoading: sepoliaTransactionLoading,
+    isSuccess: sepoliaTransactionSuccess,
+    transactionHash: sepoliaTX,
+  } = useWagmiContractWrite({
+    abi: ghoBoxSepoliaABI,
+    address: GHO_BOX_ADDRESS[SupportedChainId.SEPOLIA],
+    functionName: 'requestBorrow',
+    args: [sepoliaAmount.big, mumbaiAmount.big],
+    chainId: SupportedChainId.SEPOLIA,
+  });
 
-  const { callback: requestBorrowOnMumbai, transactionHash: mumbaiTX } =
-    useWagmiContractWrite({
-      abi: ghoBoxSepoliaABI,
-      address: GHO_BOX_ADDRESS[SupportedChainId.MUMBAI],
-      functionName: 'requestBorrow',
-      args: [mumbaiAmount.big, sepoliaAmount.big],
-      chainId: SupportedChainId.MUMBAI,
-    });
+  const {
+    callback: requestBorrowOnMumbai,
+    isMetamaskLoading: mumbaiMetamaskLoading,
+    isTransactionLoading: mumbaiTransactionLoading,
+    isSuccess: mumbaiTransactionSuccess,
+    transactionHash: mumbaiTX,
+  } = useWagmiContractWrite({
+    abi: ghoBoxSepoliaABI,
+    address: GHO_BOX_ADDRESS[SupportedChainId.MUMBAI],
+    functionName: 'requestBorrow',
+    args: [mumbaiAmount.big, sepoliaAmount.big],
+    chainId: SupportedChainId.MUMBAI,
+  });
 
   const requestBorrow = useCallback(
     async (chain: SupportedChainId) => {
       if (chain === SupportedChainId.SEPOLIA) {
-        await requestBorrowOnSepolia?.();
+        await requestBorrowOnSepolia?.({
+          pending: 'Requesting borrow on Sepolia...',
+          success: 'Borrow request successful!',
+          failed: 'Borrow request failed.',
+        });
       } else if (chain === SupportedChainId.MUMBAI) {
-        await requestBorrowOnMumbai?.();
+        await requestBorrowOnMumbai?.({
+          pending: 'Requesting borrow on Mumbai...',
+          success: 'Borrow request successful!',
+          failed: 'Borrow request failed.',
+        });
       }
     },
     [requestBorrowOnMumbai, requestBorrowOnSepolia],
@@ -58,6 +76,9 @@ const useGHOBoxContract = ({
     requestBorrow,
     thash,
     ccip,
+    isMetamaskLoading: sepoliaMetamaskLoading || mumbaiMetamaskLoading,
+    isTransactionLoading: sepoliaTransactionLoading || mumbaiTransactionLoading,
+    isSuccess: sepoliaTransactionSuccess || mumbaiTransactionSuccess,
   };
 };
 

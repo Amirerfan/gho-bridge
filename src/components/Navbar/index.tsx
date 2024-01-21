@@ -2,15 +2,25 @@ import { ConnectButton } from '../ConnectButton';
 import ChainsDropdown from '../ChainsDropdown';
 import { useMockGHOContext } from '../../contexts/MockGHOContext';
 import { useAccount } from 'wagmi';
+import { useNavigate } from 'react-router-dom';
 
 export const Navbar = () => {
   const { mockGHOSepoliaBalance, mockGHOMumbaiBalance } = useMockGHOContext();
   const { address: walletAddress } = useAccount();
 
+  const navigate = useNavigate();
+
   return (
     <nav className="h-16 w-full bg-transparent flex items-center justify-between px-6">
       <div className="ml-9 flex items-center">
-        <img src="/assets/images/logo.png" className="w-20" alt="" />
+        <img
+          src="/assets/images/logo.png"
+          className="w-20"
+          alt=""
+          onClick={() => {
+            walletAddress ? navigate('/') : navigate('/connect-wallet');
+          }}
+        />
         {walletAddress && <ChainsDropdown />}
       </div>
       <div className="flex gap-2 items-center">

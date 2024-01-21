@@ -6,12 +6,14 @@ const ChainListItem = ({
   buttonCallback,
   buttonTitle,
   isDisabled,
+  isLoading,
 }: {
   title: string;
   icon: string;
   buttonCallback: () => void;
   buttonTitle: string;
   isDisabled: boolean;
+  isLoading?: boolean;
 }) => {
   return (
     <div className="flex justify-between items-center min-w-[350px]">
@@ -22,10 +24,12 @@ const ChainListItem = ({
       <button
         className={`btn btn--small btn--secondary ${
           isDisabled ? 'btn--disabled !from-green-600 !to-green-700' : ''
+        } ${
+          isLoading ? 'btn--disabled !from-gray-300 !to-gray-400' : ''
         } !min-w-24 text-white`}
         onClick={buttonCallback}
       >
-        {buttonTitle}
+        {isLoading ? 'Loading' : buttonTitle}
       </button>
     </div>
   );

@@ -1,7 +1,7 @@
-// import { StateMessages } from '../types';
+import { StateMessages } from '../types';
 import { useMemo, useState } from 'react';
 import { waitForTransaction, writeContract } from '@wagmi/core';
-// import toast from 'react-hot-toast';
+import toast from 'react-hot-toast';
 
 const useWagmiContractWrite = ({
   abi,
@@ -26,8 +26,7 @@ const useWagmiContractWrite = ({
 
   const callback = useMemo(() => {
     if (!abi || !address || !functionName || !args || !chainId) return null;
-    // return async (stateMessage: StateMessages) => {
-    return async () => {
+    return async (stateMessage: StateMessages) => {
       setIsMetamaskLoading(true);
       setIsFailed(false);
       setIsSuccess(false);
@@ -44,11 +43,11 @@ const useWagmiContractWrite = ({
         setIsTransactionLoading(true);
         setTransactionHash(hash);
         const transaction = waitForTransaction({ hash: hash });
-        // await toast.promise(transaction, {
-        //   loading: stateMessage.pending,
-        //   success: stateMessage.success,
-        //   error: stateMessage.failed,
-        // });
+        await toast.promise(transaction, {
+          loading: stateMessage.pending,
+          success: stateMessage.success,
+          error: stateMessage.failed,
+        });
         setIsTransactionLoading(false);
         setIsSuccess(true);
       } catch (error: any) {
@@ -59,8 +58,7 @@ const useWagmiContractWrite = ({
         if (showErrorToast) {
           if (error.message.includes('reason:'))
             if (error.message?.split('reason:\n')[1]?.split('\n')[0].length > 2)
-              console.log(error.message?.split('reason:\n')[1]?.split('\n')[0]);
-          // toast.error(error.message?.split('reason:\n')[1]?.split('\n')[0]);
+              toast.error(error.message?.split('reason:\n')[1]?.split('\n')[0]);
         }
         throw error;
       }

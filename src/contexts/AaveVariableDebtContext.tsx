@@ -26,10 +26,18 @@ const AaveVariableDebtContext = createContext<{
   delegateSepolia: null | W3bNumber;
   delegateMumbai: null | W3bNumber;
   approveDelegation: ({ chainID }: { chainID: SupportedChainId }) => void;
+  isMetamaskLoading?: boolean;
+  isTransactionLoading?: boolean;
+  isLoadingSepolia?: boolean;
+  isLoadingMumbai?: boolean;
 }>({
   delegateSepolia: null,
   delegateMumbai: null,
   approveDelegation: () => {},
+  isMetamaskLoading: false,
+  isTransactionLoading: false,
+  isLoadingSepolia: false,
+  isLoadingMumbai: false,
 });
 
 const AaveVariableDebtProvider = ({ children }: { children: ReactNode }) => {
@@ -73,7 +81,11 @@ const AaveVariableDebtProvider = ({ children }: { children: ReactNode }) => {
     } else console.log('no delegate data');
   }, [delegateMumbaiData]);
 
-  const { callback: sepoliaDelegateCallback } = useWagmiContractWrite({
+  const {
+    callback: sepoliaDelegateCallback,
+    isMetamaskLoading: sepoliaMetamaskLoading,
+    isTransactionLoading: sepoliaTransactionLoading,
+  } = useWagmiContractWrite({
     abi: aaveVariableDebtSepoliaABI,
     address: AAVE_VARIABLE_DEBT_ADDRESS[SupportedChainId.SEPOLIA],
     args: [
@@ -84,7 +96,11 @@ const AaveVariableDebtProvider = ({ children }: { children: ReactNode }) => {
     functionName: 'approveDelegation',
   });
 
-  const { callback: mumbaiDelegateCallback } = useWagmiContractWrite({
+  const {
+    callback: mumbaiDelegateCallback,
+    isMetamaskLoading: mumbaiMetamaskLoading,
+    isTransactionLoading: mumbaiTransactionLoading,
+  } = useWagmiContractWrite({
     abi: aaveVariableDebtMumbaiABI,
     address: AAVE_VARIABLE_DEBT_ADDRESS[SupportedChainId.MUMBAI],
     args: [
@@ -100,9 +116,17 @@ const AaveVariableDebtProvider = ({ children }: { children: ReactNode }) => {
       if (!walletAddress) return;
       try {
         if (chainID === SupportedChainId.SEPOLIA) {
-          await sepoliaDelegateCallback?.();
+          await sepoliaDelegateCallback?.({
+            pending: 'Approving Delegation...',
+            success: 'Delegation Approved!',
+            failed: 'Failed to Approve Delegation.',
+          });
         } else if (chainID === SupportedChainId.MUMBAI) {
-          await mumbaiDelegateCallback?.();
+          await mumbaiDelegateCallback?.({
+            pending: 'Approving Delegation...',
+            success: 'Delegation Approved!',
+            failed: 'Failed to Approve Delegation.',
+          });
         }
       } catch (e) {
         console.log(e);
@@ -117,6 +141,11 @@ const AaveVariableDebtProvider = ({ children }: { children: ReactNode }) => {
         delegateSepolia,
         delegateMumbai,
         approveDelegation,
+        isMetamaskLoading: sepoliaMetamaskLoading || mumbaiMetamaskLoading,
+        isTransactionLoading:
+          sepoliaTransactionLoading || mumbaiTransactionLoading,
+        isLoadingSepolia: sepoliaMetamaskLoading || sepoliaTransactionLoading,
+        isLoadingMumbai: mumbaiMetamaskLoading || mumbaiTransactionLoading,
       }}
     >
       {children}

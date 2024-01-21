@@ -6,8 +6,13 @@ import { SupportedChainId } from '../../constants/chains';
 import { useNetwork, useSwitchNetwork } from 'wagmi';
 
 const Dropdown = () => {
-  const { delegateSepolia, delegateMumbai, approveDelegation } =
-    useAaveVariableDebtContext();
+  const {
+    delegateSepolia,
+    delegateMumbai,
+    isLoadingSepolia,
+    isLoadingMumbai,
+    approveDelegation,
+  } = useAaveVariableDebtContext();
 
   const { chain } = useNetwork();
   const { switchNetwork } = useSwitchNetwork();
@@ -38,6 +43,7 @@ const Dropdown = () => {
         isDisabled={
           !!(delegateSepolia && delegateSepolia?.big > BigInt(10 ** 30))
         }
+        isLoading={isLoadingSepolia}
       />
       <ChainListItem
         icon="https://imagedelivery.net/XQ6LDks1pWNDtTDAw7o9nA/1f9a04e7-bf43-476d-4705-506297e2de00/public"
@@ -59,6 +65,7 @@ const Dropdown = () => {
         isDisabled={
           !!(delegateMumbai && delegateMumbai?.big > BigInt(10 ** 30))
         }
+        isLoading={isLoadingMumbai}
       />
     </FadeIn>
   );
