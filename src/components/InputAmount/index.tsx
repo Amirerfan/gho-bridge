@@ -45,9 +45,7 @@ const InputAmount = ({
             className={`text-3xl bg-transparent text-white pl-0.5 ${
               value === '' ? '!text-gray-400' : ''
             }`}
-          >
-            $
-          </p>
+          ></p>
           <input
             type="number"
             id="amount"

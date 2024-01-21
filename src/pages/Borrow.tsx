@@ -93,8 +93,7 @@ const Borrow = () => {
             setSelectedChain={setSelectedChain}
             value={
               Number(sepoliaAmount) + Number(mumbaiAmount) > 0
-                ? '$' +
-                  (Number(sepoliaAmount) + Number(mumbaiAmount)).toString()
+                ? (Number(sepoliaAmount) + Number(mumbaiAmount)).toString()
                 : ''
             }
           />

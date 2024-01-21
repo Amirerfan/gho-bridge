@@ -26,7 +26,7 @@ const OutputAmount = ({
             value={value}
             disabled
             className="text-3xl bg-transparent text-white pl-0"
-            placeholder="$0.00"
+            placeholder="0.00"
           />
           <div className="flex flex-col gap-2 rounded-xl py-0.5 justify-start items-end">
             <select
