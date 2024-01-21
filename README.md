@@ -2,7 +2,7 @@
 
 ## Overview
 
-[GhoBox](https://gho-bridge.vercel.app/) is a revolutionary contract that streamlines liquidity management across multiple blockchains without the need to shift collateral. It enables users to provide liquidity to Aave on any supported chain and delegate borrowing power to GhoBox. This unique system allows GhoBox to efficiently handle loans using the user's liquidity. Utilizing the Cross-Chain Interoperability Protocol (CCIP), GhoBox adeptly coordinates loans across different blockchains, encompassing all necessary steps – borrowing, burning, and minting of GHO tokens. This process significantly simplifies cross-chain asset utilization without the need to move collateral. For detailed insights into the contract mechanics, visit our [contracts repository](hhttps://github.com/zkfriendly/snow).
+[GhoBox](https://gho-bridge.vercel.app/) is a revolutionary contract that streamlines liquidity management across multiple blockchains without the need to shift collateral. It enables users to provide liquidity to Aave on any supported chain and delegate borrowing power to GhoBox. This unique system allows GhoBox to efficiently handle loans using the user's liquidity. Utilizing the Cross-Chain Interoperability Protocol (CCIP), GhoBox adeptly coordinates loans across different blockchains, encompassing all necessary steps – borrowing, burning, and minting of GHO tokens. This process significantly simplifies cross-chain asset utilization without the need to move collateral. For detailed insights into the contract mechanics, visit our [contracts repository](https://github.com/zkfriendly/snow).
 
 ## How It Works: A Running Example
 
