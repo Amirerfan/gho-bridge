@@ -40,14 +40,23 @@ const InputAmount = ({
             )}
           </div>
         </div>
-        <input
-          type="number"
-          id="amount"
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-          className="text-3xl bg-transparent text-white pl-0"
-          placeholder="0.0"
-        />
+        <div className="flex w-full">
+          <p
+            className={`text-3xl bg-transparent text-white pl-0.5 ${
+              value === '' ? '!text-gray-400' : ''
+            }`}
+          >
+            $
+          </p>
+          <input
+            type="number"
+            id="amount"
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
+            className="text-3xl bg-transparent text-white pl-0 "
+            placeholder="0.0"
+          />
+        </div>
       </div>
     </div>
   );
