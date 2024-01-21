@@ -20,7 +20,7 @@ const Web3Provider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   const { publicClient, chains } = configureChains(
-    [polygonMumbai, sepolia],
+    [sepolia, polygonMumbai],
     [
       jsonRpcProvider({
         rpc: (chain) => ({
